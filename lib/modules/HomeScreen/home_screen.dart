@@ -28,7 +28,7 @@ class home_screen extends StatelessWidget {
                  Container(
                      height: 150,
                      width: 150,
-                     child: Image(image: AssetImage('assets/images/onboarding1.jpg'))),
+                     child: Image(image: NetworkImage('http://api.mahmoudtaha.com/images/${cubit!.data[index].images[index]}'))),
 
                ],
              ),

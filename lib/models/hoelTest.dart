@@ -49,6 +49,7 @@ class DataModel {
     rate = json['rate'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    images: List<String>.from(json['hotel_images'].map((x) => x['image']));
+    images = List.from(json['hotel_images']).map((e)
+             => e['image'].toString()).toList();
   }
 }
