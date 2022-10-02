@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/states.dart';
-import 'package:shop_app/models/hotel_model.dart';
+import 'package:shop_app/models/hotelModel.dart';
 import 'package:shop_app/models/loginModel.dart';
 import 'package:shop_app/models/profile_screen.dart';
 
@@ -53,19 +53,18 @@ class AppCubit extends Cubit<AppState> {
   }
 
   //----------------------------------------------gethotel
-  List<HotelModel>? hotelModel;
-  // HotelModel? hotelModel;
+  HotelModel? hotelModel;
 
   void gethotels() {
     emit(GetHotelDataLoading());
     DioHelper.getData(url: homeEndPoint, query: {
-      'count': 3,
+      'count': 10,
       'page': 1,
     }).then((value) {
-      value.for
+      // value.for
       hotelModel = HotelModel.fromJson(value.data);
       print('###########################');
-      print(hotelModel);
+      print(hotelModel!.data[0].name);
       emit(GetHotelDataSuccess(hotelModel));
     }).catchError((error) {
       print('#################error##########');

@@ -1,4 +1,4 @@
-import 'package:shop_app/models/hotel_model.dart';
+import 'package:shop_app/models/hotelModel.dart';
 import 'package:shop_app/models/loginModel.dart';
 import 'package:shop_app/models/profile_screen.dart';
 
@@ -19,7 +19,7 @@ class ShowMoreState extends AppState {}
 //----------------------------------------gethotelstates
 class GetHotelDataLoading extends AppState {}
 class GetHotelDataSuccess extends AppState {
-  HotelModel ?hotelModel;
+  HotelModel? hotelModel;
 
   GetHotelDataSuccess(this.hotelModel);
 }
