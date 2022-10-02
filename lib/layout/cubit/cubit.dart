@@ -63,10 +63,11 @@ class AppCubit extends Cubit<AppState> {
       'page': 1,
     }).then((value) {
       // value.for
-      hotelModel = HoelTest.fromJson(value.data['data']['data']);
+      hotelModel = HoelTest.fromJson(value.data['data']);
       print('###########################');
       print(hotelModel!.data[0].name);
       emit(GetHotelDataSuccess());
+
     }).catchError((error) {
       print('#################error##########');
 

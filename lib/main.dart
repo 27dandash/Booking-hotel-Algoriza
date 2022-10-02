@@ -25,7 +25,7 @@ void main() async{
   await CacheHelper.init();
   SharedPreferences.getInstance();
   Widget widget;
-  bool onBoarding = CacheHelper.getData(key: 'onBoarding') ;
+  bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false ;
   token = CacheHelper.getData(key: 'token');
   bool? isdark = CacheHelper.getData(key: 'Isdark');
   isRtl = CacheHelper.getData(key: 'isRtl') == null ? false : CacheHelper.getData(key: 'isRtl');
