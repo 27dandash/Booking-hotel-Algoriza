@@ -1,0 +1,71 @@
+{
+  "login": "login",
+  "hi": "hi",
+  "no_account": "Don't have an account?",
+  "email": "Email",
+  "pass": "Password",
+  "confirm_pass": "Confirm Password",
+
+  "skip": "Skip",
+  "next": "Next",
+  "done": " Done",
+
+  "intro_title_1":"About Us",
+  "intro_description_1":"We are an application that helps you book hotels and rooms, we look with you carefully and always choose the best for you",
+  "intro_title_2":"Carefully and Accurately",
+  "intro_description_2":"Your choice of things should be carefully and meticulously, especially the things in which you are comfortable, so we suggest you the appropriate options for you",
+  "intro_title_3":"Chose your Wishes",
+  "intro_description_3":"We make all your desires and all your dreams come true",
+
+  "username": "User Name",
+  "phone": "Phone",
+  "register": "Register",
+  "enter_name":"Enter is name  ",
+  "enter_email":"Enter is email  ",
+  "enter_password":"Enter is password ",
+  " enter_password":"Enter is password ",
+  "enter_confirm_pass": "Enter Confirm Password",
+
+  "name_empty":"Name is empty ",
+
+  "or":"__OR__",
+
+  "password_empty":"Password is empty ",
+  "email_empty":"Email is empty ",
+  "forget_pass":"Forget Password ",
+  "remember_me":"Remember Me",
+
+  "have_account":" Already have an account  ",
+  "not_have_account":" don't have an account",
+
+  "edit_profile":"Edit Profile ",
+  "call_us":"Call Us",
+  "help":"Help",
+  "setting":"Setting ",
+  "dark_mode":"Dark Mode ",
+  "change_lang":"Change Language ",
+  "add_image":"Add Image ",
+  "logout": "Logout ",
+  "profile": "Profile ",
+
+  "logindone": "Login Success",
+  "loginerror": "Login Error Please Try Again",
+  "booknow": "Book Now",
+  "topRatedHotels": "Top Rated hotels",
+  "home": "Home",
+  "explore": "Explore",
+  "hotels": "Hotels",
+  "show_in_map": "- show in map",
+  "price": "Price",
+  "rates": "Rates",
+  "myBooking": "My Booking",
+  "map": "Map",
+  "details": "Details",
+  "upcoming": "Upcoming",
+  "completed": "completed",
+  "cancelled": "cancelled",
+
+  "search": "Search",
+  "bookingId": "Your Booking id is:",
+  "backToHome": "Back to home"
+}
