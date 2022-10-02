@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
           builder: (context)=> Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("Shop App"),
+              title: const Text("Hotel App"),
               leading: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: InkWell(
@@ -69,6 +69,14 @@ class _HomeState extends State<Home> {
                     },
                     icon: const Icon(
                       Icons.language,
+                      color: Colors.black,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      CacheHelper.removeData(key: 'token');
+                    },
+                    icon: const Icon(
+                      Icons.remove,
                       color: Colors.black,
                     )),
               ],

@@ -94,11 +94,12 @@ Widget defaultButton({
 Widget defaultTextButton({
   required Function() function,
   required String text,
+   Color ? xolor,
 }) =>
     TextButton(
       onPressed: function,
       child: Text(
-        text.toUpperCase(),
+        text.toUpperCase(),style: TextStyle(color: xolor),
       ),
     );
 

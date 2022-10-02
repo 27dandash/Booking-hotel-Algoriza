@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/states.dart';
+import 'package:shop_app/models/hotel_model.dart';
 import 'package:shop_app/models/loginModel.dart';
+import 'package:shop_app/models/profile_screen.dart';
 
 import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/network/SharedPreferences.dart';
@@ -35,7 +37,6 @@ class AppCubit extends Cubit<AppState> {
     home_screen(),
     exploar_screen(),
     profile_screen(),
-
   ];
 
   void changeBottom(int index) {
@@ -49,13 +50,47 @@ class AppCubit extends Cubit<AppState> {
         ? Icons.visibility_rounded
         : Icons.visibility_off_rounded;
     emit(LoginChangePasswordState());
-
   }
 
+  //----------------------------------------------gethotel
+  List<HotelModel>? hotelModel;
+  // HotelModel? hotelModel;
 
+  void gethotels() {
+    emit(GetHotelDataLoading());
+    DioHelper.getData(url: homeEndPoint, query: {
+      'count': 3,
+      'page': 1,
+    }).then((value) {
+      value.for
+      hotelModel = HotelModel.fromJson(value.data);
+      print('###########################');
+      print(hotelModel);
+      emit(GetHotelDataSuccess(hotelModel));
+    }).catchError((error) {
+      print('#################error##########');
 
-  // ---------------------------------------- post login
+      print(error.toString());
+      emit(GetHotelDataError(error.toString()));
+    });
+  }
 
+// ---------------------------------------- get profile data
+
+  ProfileModel? userModel;
+
+  void getSettingData() {
+    emit(ShopLoadingGetSettingDataState());
+    print('name is error ');
+    DioHelper.getData(url: profileEndPoint, token: token).then((value) {
+      userModel = ProfileModel.fromJson(value.data);
+      emit(ShopSuccessGetSettingDataState(userModel!));
+    }).catchError((onError) {
+      print(onError.toString());
+      print('name is error ');
+      emit(ShopErrorGetSettingDataState(onError.toString()));
+    });
+  }
 
 // ---------------------------------------- change mode
   bool isappmode = false;
@@ -72,11 +107,12 @@ class AppCubit extends Cubit<AppState> {
       });
     }
   }
+
 // ---------------------------------------- Translation
   void changeLanguage() async {
     isRtl = !isRtl;
 
-    CacheHelper.saveData(key: 'isRtl' , value: isRtl);
+    CacheHelper.saveData(key: 'isRtl', value: isRtl);
     String translation = await rootBundle
         .loadString('assets/translations/${isRtl ? 'ar' : 'en'}.json');
     setTranslation(
@@ -127,5 +163,4 @@ class AppCubit extends Cubit<AppState> {
     }
     emit(InternetState());
   }
-
 }

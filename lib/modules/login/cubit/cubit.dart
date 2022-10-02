@@ -28,7 +28,7 @@ class LoginCubit extends Cubit<LoginStates>{
     print(password);
     emit(LoginLoadingState());
 ;
-    DioHelper.postData(url: '$baseApiUrl$version$loginEndPoint', data: {
+    DioHelper.postData(url:loginEndPoint, data: {
       'email':email,
       'password':password,
     }) .then((value){
