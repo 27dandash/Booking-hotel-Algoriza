@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/states.dart';
+import 'package:shop_app/models/hoelTest.dart';
 import 'package:shop_app/models/hotelModel.dart';
 import 'package:shop_app/models/loginModel.dart';
 import 'package:shop_app/models/profile_screen.dart';
@@ -53,7 +54,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   //----------------------------------------------gethotel
-  HotelModel? hotelModel;
+  HoelTest? hotelModel;
 
   void gethotels() {
     emit(GetHotelDataLoading());
@@ -62,10 +63,10 @@ class AppCubit extends Cubit<AppState> {
       'page': 1,
     }).then((value) {
       // value.for
-      hotelModel = HotelModel.fromJson(value.data);
+      hotelModel = HoelTest.fromJson(value.data['data']['data']);
       print('###########################');
       print(hotelModel!.data[0].name);
-      emit(GetHotelDataSuccess(hotelModel));
+      emit(GetHotelDataSuccess());
     }).catchError((error) {
       print('#################error##########');
 

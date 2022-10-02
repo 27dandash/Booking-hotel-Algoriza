@@ -19,9 +19,9 @@ class ShowMoreState extends AppState {}
 //----------------------------------------gethotelstates
 class GetHotelDataLoading extends AppState {}
 class GetHotelDataSuccess extends AppState {
-  HotelModel? hotelModel;
-
-  GetHotelDataSuccess(this.hotelModel);
+  // HotelModel? hotelModel;
+  //
+  // GetHotelDataSuccess(this.hotelModel);
 }
 class GetHotelDataError extends AppState {
   String ? error;
