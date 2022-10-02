@@ -10,6 +10,7 @@ import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/network/SharedPreferences.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 
+import '../register/RegisterScreen.dart';
 import 'cubit/cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -29,9 +30,14 @@ class LoginScreen extends StatelessWidget {
             token = states.loginModel!.data!.token;
             navigateFinish(context, Home());
           });
-        } else {
+          showToast(
+              message: 'Login Done Success', toastStates: ToastStates.SUCCESS);
+        }
+        if (states is LoginErrorState) {
+
           showToast(
               message: 'Error While login', toastStates: ToastStates.ERROR);
+
         }
       },
       builder: (context, states) {
@@ -92,9 +98,11 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      // defaultTextButton(function: (){
-                      //   navigateTo(context, RegisterScreen());
-                      // }, text: 'Don\'t Have an account ?'),
+                      defaultTextButton(
+                        xolor: Colors.black,
+                        function: (){
+                        navigateTo(context, RegisterScreen());
+                      }, text: 'Don\'t Have an account ? Register Here',),
                       SizedBox(
                         height: 20,
                       ),
