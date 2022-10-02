@@ -7,6 +7,7 @@ import 'package:shop_app/layout/cubit/cubit.dart';
 import 'package:shop_app/layout/cubit/states.dart';
 import 'package:shop_app/layout/Home.dart';
 import 'package:shop_app/modules/login/loginScreen.dart';
+import 'package:shop_app/modules/register/cubit/cubit.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:shop_app/shared/cubit/myBlocObserver.dart';
 import 'package:shop_app/shared/network/SharedPreferences.dart';
@@ -64,9 +65,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<AppCubit>(
         create: (BuildContext context) => AppCubit()
           ..checkConnectivity()
+          ..gethotels()
           ..onchangeappmode(formShared: isdark )
           ..setTranslation(translation: translation),
-        ) ],
+        ),
+      BlocProvider<RegisterCubit>(create: (BuildContext context)=>RegisterCubit())],
         child: BlocConsumer<AppCubit , AppState> (
           listener:  (context, state) {},
           builder:  (context, state) {

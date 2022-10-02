@@ -33,14 +33,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   List<BoardingModel> boarding = [
     BoardingModel(image:'assets/images/onboarding1.jpg',
-        title: 'Screen One',
-        body: 'Shop app is first Flutter App with GC.'),
+        title: 'About Us',
+        body: '"We are an application that helps you book hotels and rooms, we look with you carefully and always choose the best for you'),
     BoardingModel(image:'assets/images/onboarding2.png',
-        title: 'Screen Two',
-        body: 'Shop app is Second Flutter App with GC.'),
+        title: 'Carefully and Accurately',
+        body: 'Your choice of things should be carefully and meticulously, especially the things in which you are comfortable, so we suggest you the appropriate options for you'),
     BoardingModel(image:'assets/images/onboarding3.png',
-        title: 'Screen Three',
-        body: 'Shop app is third Flutter App with GC.'),
+        title: 'Chose your Wishes',
+        body: 'We make all your desires and all your dreams come true'),
   ];
 
   bool isLast = false;

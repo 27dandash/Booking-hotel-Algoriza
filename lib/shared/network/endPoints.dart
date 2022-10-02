@@ -8,3 +8,4 @@ String searchEndPoint = '/search-hotels';
 String booking = '/create-booking';
 String getBooking = '/get-bookings';
 String facilitiesEndPoint = '/facilities';
+String homeEndPoint = '/hotels';
