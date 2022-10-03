@@ -124,7 +124,7 @@ class home_screen extends StatelessWidget {
               ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.cyan[100],
@@ -138,16 +138,16 @@ class home_screen extends StatelessWidget {
                           Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(3),
+                                padding: const EdgeInsets.all(10.0),
                                 child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    height: 180,
-                                    width: 180,
-                                    child: Image(
-                                        image: NetworkImage(
-                                            'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}'))),
+                                    height: 100,
+                                    width: 150,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: Image(
+                                          image: NetworkImage(
+                                              'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')),
+                                    )),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
