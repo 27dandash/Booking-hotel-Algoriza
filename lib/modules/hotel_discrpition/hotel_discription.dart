@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shop_app/shared/network/endPoints.dart';
 
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
@@ -10,16 +11,17 @@ import '../../models/hoelTest.dart';
 import '../../shared/components/constants.dart';
 
 class hotel_description extends StatelessWidget {
-  const hotel_description({Key? key}) : super(key: key);
+  final DataModel data;
+  const hotel_description({Key? key,required this.data}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
   listener: (context, state) {
-    // TODO: implement listener
   },
   builder: (context, state) {
-    var cubit=AppCubit.get(context).hotelModel;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -29,15 +31,8 @@ class hotel_description extends StatelessWidget {
               width: double.infinity,
               // height: 150,
               child: Image.network(
-                  'https://picsum.photos/250?image=9'),
+                 'http://api.mahmoudtaha.com/images/${data.images[0]}'),
             ),
-            // Image(
-            //   image: NetworkImage(
-            //       cubit!.data.im
-            //   ),
-            //   width: double.infinity,
-            //   fit: BoxFit.cover,
-            // ),
             SizedBox(
               height: 20.0,
             ),
@@ -55,7 +50,7 @@ class hotel_description extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Price : ',
+                        'Price : ${data.price}',
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       // Text(
@@ -112,7 +107,8 @@ class hotel_description extends StatelessWidget {
 
 
 
-            ])
+            ]
+            )
           ],
         ),
       ),
