@@ -63,6 +63,8 @@ class TranslationModel {
   late String search;
   late String bookingId;
   late String backToHome;
+  late String pophotel;
+  late String allhotel;
 
   TranslationModel.fromJson(Map<String, dynamic> json) {
     login = json['login'];
@@ -127,5 +129,7 @@ class TranslationModel {
     search = json['search'];
     bookingId = json['bookingId'];
     backToHome = json['backToHome'];
+    pophotel = json['pophotel'];
+    allhotel = json['allhotel'];
   }
 }

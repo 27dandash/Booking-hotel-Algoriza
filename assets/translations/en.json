@@ -67,5 +67,8 @@
 
   "search": "Search",
   "bookingId": "Your Booking id is:",
-  "backToHome": "Back to home"
+  "backToHome": "Back to home",
+  "pophotel": "Popular Hotels",
+  "allhotel": "All availabel Hotels"
+
 }

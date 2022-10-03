@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
         create: (BuildContext context) => AppCubit()
           ..checkConnectivity()
           ..gethotels()
+          ..getSearch()
           ..onchangeappmode(formShared: isdark )
           ..setTranslation(translation: translation),
         ),

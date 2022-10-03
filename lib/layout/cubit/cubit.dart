@@ -8,9 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/states.dart';
 import 'package:shop_app/models/hoelTest.dart';
-import 'package:shop_app/models/hotelModel.dart';
-import 'package:shop_app/models/loginModel.dart';
 import 'package:shop_app/models/profile_screen.dart';
+import 'package:shop_app/models/search_model.dart';
 
 import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/network/SharedPreferences.dart';
@@ -52,7 +51,43 @@ class AppCubit extends Cubit<AppState> {
         : Icons.visibility_off_rounded;
     emit(LoginChangePasswordState());
   }
+//-------------------------------------------------getsearch
+  SearchModel ? searchModel;
+  void getSearch({
+        String address='',
+        int? maxPrice=0,
+        int? minPrice=1000,
+        int? count=0,
+        int? page=0,
+        int? facilities=0,
+        double? latitude=0.0,
+        double? longitude=0.0,
+        int? distance=0,
+        String? name='',
+      }) {
+    emit(SearchFilterLoadingState());
 
+    DioHelper.getData(url: searchEndPoint, query: {
+      'name': name,
+      'count': count,
+      'address': address,
+      'page': page,
+      'max_price': maxPrice,
+      'min_price': minPrice,
+      'latitude': latitude,
+      'longitude': longitude,
+      'distance': distance,
+      'facilities[0]': facilities,
+    }).then((value) {
+      searchModel = SearchModel.fromJson(value.data);
+      print("========Search============$searchModel");
+      emit(SearchFilterSuccessState());
+    }).catchError((onError) {
+      print('#################errorSearch##########');
+      print(onError.toString());
+      emit(SearchFilterErrorState(onError.toString()));
+    });
+  }
   //----------------------------------------------gethotel
   HoelTest? hotelModel;
 

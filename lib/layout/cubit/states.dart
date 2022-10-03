@@ -1,4 +1,3 @@
-import 'package:shop_app/models/hotelModel.dart';
 import 'package:shop_app/models/loginModel.dart';
 import 'package:shop_app/models/profile_screen.dart';
 
@@ -16,6 +15,13 @@ class ShopChangeState extends AppState {}
 
 class ShopLoadingState extends AppState {}
 class ShowMoreState extends AppState {}
+//-------------------------------------------getsearch
+class SearchFilterLoadingState extends AppState {}
+class SearchFilterSuccessState extends AppState {}
+class SearchFilterErrorState extends AppState {
+  String error;
+  SearchFilterErrorState(this.error);
+}
 //----------------------------------------gethotelstates
 class GetHotelDataLoading extends AppState {}
 class GetHotelDataSuccess extends AppState {
