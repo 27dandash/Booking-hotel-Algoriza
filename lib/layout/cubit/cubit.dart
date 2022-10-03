@@ -100,8 +100,8 @@ class AppCubit extends Cubit<AppState> {
       // value.for
       hotelModel = HoelTest.fromJson(value.data['data']);
       print('###########################');
-      print(hotelModel!.data[2].name);
-      print(hotelModel!.data[2].images[0]);
+      // print(hotelModel!.data[2].name);
+      // print(hotelModel!.data[2].images[0]);
       emit(GetHotelDataSuccess());
 
     }).catchError((error) {

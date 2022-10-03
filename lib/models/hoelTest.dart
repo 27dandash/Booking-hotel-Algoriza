@@ -3,7 +3,7 @@ class HoelTest {
     required this.data,
   });
 
-  late final List<DataModel> data;
+  List<DataModel>? data;
 
   HoelTest.fromJson(Map<String, dynamic> json) {
     data = List.from(json['data']).map((e) => DataModel.fromJson(e)).toList();
