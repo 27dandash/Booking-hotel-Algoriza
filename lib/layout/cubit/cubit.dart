@@ -52,19 +52,22 @@ class AppCubit extends Cubit<AppState> {
     emit(LoginChangePasswordState());
   }
 //-------------------------------------------------getsearch
-  SearchModel ? searchModel;
-  void getSearch({
+  HoelTest ? searchModel;
+
+  void getSearch(
+      {
         String address='',
-        int? maxPrice=0,
-        int? minPrice=1000,
-        int? count=0,
+        int? maxPrice=90000,
+        int? minPrice=0,
+        int? count= 0,
         int? page=0,
         int? facilities=0,
         double? latitude=0.0,
         double? longitude=0.0,
         int? distance=0,
         String? name='',
-      }) {
+      }
+      ) {
     emit(SearchFilterLoadingState());
 
     DioHelper.getData(url: searchEndPoint, query: {
@@ -77,9 +80,12 @@ class AppCubit extends Cubit<AppState> {
       'latitude': latitude,
       'longitude': longitude,
       'distance': distance,
-      'facilities[0]': facilities,
+      'facilities[0]': facilities == 0 ? [] : facilities,
     }).then((value) {
-      searchModel = SearchModel.fromJson(value.data);
+      searchModel = HoelTest.fromJson(value.data['data']);
+
+      print("========Search============${searchModel!.data!.length}");
+
       print("========Search============$searchModel");
       emit(SearchFilterSuccessState());
     }).catchError((onError) {

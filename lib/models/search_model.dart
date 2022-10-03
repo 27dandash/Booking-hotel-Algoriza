@@ -1,13 +1,13 @@
 class SearchModel {
   Status? status;
-  Data? data;
+  List<DataSearch>? data;
 
   SearchModel({this.status, this.data});
 
   SearchModel.fromJson(Map<String, dynamic> json) {
     status =
-    json['status'] != null ? new Status.fromJson(json['status']) : null;
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    json['status'] != null ? Status.fromJson(json['status']) : null;
+    data = json['data'] != null ? (json['data'] as List).map((i) => DataSearch.fromJson(i)).toList() : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -16,7 +16,7 @@ class SearchModel {
       data['status'] = this.status!.toJson();
     }
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -38,7 +38,7 @@ class Status {
   }
 }
 
-class Data {
+class DataSearch {
   int? currentPage;
   List<lData>? data;
   String? firstPageUrl;
@@ -53,7 +53,7 @@ class Data {
   int? to;
   int? total;
 
-  Data(
+  DataSearch(
       {this.currentPage,
         this.data,
         this.firstPageUrl,
@@ -68,7 +68,7 @@ class Data {
         this.to,
         this.total});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataSearch.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = <lData>[];

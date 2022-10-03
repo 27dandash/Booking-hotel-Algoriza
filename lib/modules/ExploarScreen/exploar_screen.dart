@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/cubit.dart';
+import 'package:shop_app/models/hoelTest.dart';
 
 import '../../layout/cubit/states.dart';
 import '../../shared/components/constants.dart';
@@ -17,7 +18,7 @@ class exploar_screen extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit=AppCubit.get(context).searchModel;
+        var cubit = AppCubit.get(context).searchModel;
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -43,6 +44,9 @@ class exploar_screen extends StatelessWidget {
                   const SizedBox(height: 20),
                   TextFormField(
                     controller: textController,
+                    // onChanged: (val)=>AppCubit.get(context).getSearch(
+                    //     name: textController.text
+                    // ),
                     decoration: InputDecoration(
                       labelText: 'Search',
                       prefixIcon: IconButton(
@@ -74,51 +78,12 @@ class exploar_screen extends StatelessWidget {
                     height: 10,
                   ),
                   if (state is SearchFilterSuccessState)
-              Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
-          child: SizedBox(
-            height: 124,
-            child: Card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'The westin dhaka',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const Text(
-                          'Kensington palace',
-                          style: TextStyle(
-                              fontSize: 12, color: Color(0XFFC1C1C1)),
-                        ),
-                        const Text(
-                          '\$180/night',
-                          style: TextStyle(
-                              fontSize: 12, color: Color(0XFF060B92)),
-                        ),
-
-                      ],
-                    ),
+                  ListView.separated(
+                    separatorBuilder: (_,index)=> SizedBox(height: 10,),
+                    itemBuilder: (_,index)=>padding(cubit!.data![index]),
+                    itemCount: cubit!.data!.length,
+                    shrinkWrap: true,
                   ),
-                  RotatedBox(
-                    quarterTurns: -1,
-                    child: Container(
-                        child: Image.network(
-                            'https://picsum.photos/250?image=9'),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
                 ],
               ),
             ),
@@ -127,4 +92,51 @@ class exploar_screen extends StatelessWidget {
       },
     );
   }
+  Widget padding(DataModel index)=> Padding(
+    padding: const EdgeInsets.only(top: 5, bottom: 5),
+    child: SizedBox(
+      height: 124,
+      child: Card(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text(
+                    index.name,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Text(
+                    'Kensington palace',
+                    maxLines: 1,
+                    style: TextStyle(
+                        fontSize: 12, color: Color(0XFFC1C1C1)),
+                  ),
+                  const Text(
+                    '\$180/night',
+                    style: TextStyle(
+                        fontSize: 12, color: Color(0XFF060B92)),
+                  ),
+
+                ],
+              ),
+            ),
+
+            RotatedBox(
+              quarterTurns: -1,
+              child: Container(
+                child: Image.network(
+                    'https://picsum.photos/250?image=9'),
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }
