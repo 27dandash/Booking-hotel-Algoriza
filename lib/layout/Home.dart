@@ -47,40 +47,7 @@ class _HomeState extends State<Home> {
         child: BuildCondition(
           condition: !AppCubit.  get(context).noInternetConnection,
           builder: (context)=> Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: const Text("Hotel App"),
-              leading: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: InkWell(
-                    onTap: (){
-                      AppCubit.get(context).changeLanguage();
-                    },
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://images.wallpaperscraft.com/image/single/building_showcase_art_140944_1280x720.jpg'),
-                      radius: 3,
-                    )),
-              ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      AppCubit.get(context).onchangeappmode();
-                    },
-                    icon: const Icon(
-                      Icons.language,
-                      color: Colors.black,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      CacheHelper.removeData(key: 'token');
-                    },
-                    icon: const Icon(
-                      Icons.remove,
-                      color: Colors.black,
-                    )),
-              ],
-            ),
+
             body: cubit.bottomScreen[cubit.currentIndex],
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: cubit.currentIndex,

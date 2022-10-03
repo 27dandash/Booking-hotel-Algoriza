@@ -58,14 +58,14 @@ class AppCubit extends Cubit<AppState> {
       {
         String address='',
         int? maxPrice=90000,
-        int? minPrice=0,
+        int? minPrice=1,
         int? count= 0,
         int? page=0,
         int? facilities=0,
         double? latitude=0.0,
         double? longitude=0.0,
         int? distance=0,
-        String? name='',
+        String? name='p',
       }
       ) {
     emit(SearchFilterLoadingState());
@@ -83,10 +83,11 @@ class AppCubit extends Cubit<AppState> {
       'facilities[0]': facilities == 0 ? [] : facilities,
     }).then((value) {
       searchModel = HoelTest.fromJson(value.data['data']);
-
+      // print('========name============$name');
+      // print('========maxPrice============$maxPrice');
       print("========Search============${searchModel!.data!.length}");
 
-      print("========Search============$searchModel");
+
       emit(SearchFilterSuccessState());
     }).catchError((onError) {
       print('#################errorSearch##########');

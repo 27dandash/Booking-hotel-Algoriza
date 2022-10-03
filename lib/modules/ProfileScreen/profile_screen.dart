@@ -1,23 +1,150 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+
+import '../../layout/cubit/cubit.dart';
+import '../../layout/cubit/states.dart';
+import '../../shared/network/SharedPreferences.dart';
 
 class profile_screen extends StatelessWidget {
-  const profile_screen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        body: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            var cubit=AppCubit.get(context).
+            return SafeArea(
+              child: Column(
+                children: [
+                  ClipPath(
+                    clipper: OvalBottomBorderClipper(),
+                    child: Container(
+                      height: 100,
+                      color: Colors.blue,
+                      child: Center(
+                          child: Text(
+                            "Profile Screen",
+                            style: TextStyle(fontSize: 25),
+                          )),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {},
+                              child: const Text('Book Now')),
+                        ),
+                        SizedBox(height: 15,),
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {},
+                              child: const Text('Book Now')),
+                        ),
+                        SizedBox(height: 15,),
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {},
+                              child: const Text('Book Now')),
+                        ),
+                        SizedBox(height: 15,),
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {
+                                AppCubit.get(context).changeLanguage();
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 15,),
+                                  const Text('Change App Theme'),
+                                  Spacer(),
+                                  IconButton(onPressed: () {},
+                                      icon: Icon(Icons.switch_camera_sharp))
+                                ],
+                              )
 
-        body: Center(
-          child: Text(
-            'This is the profile page',
-            style: TextStyle(fontSize: 24),
-          ),
-        )
-    );
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {
+                                AppCubit.get(context).onchangeappmode();
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 15,),
+                                  const Text('Change Language'),
+                                  Spacer(),
+                                  IconButton(onPressed: () {},
+                                      icon: Icon(Icons.language))
+                                ],
+                              )
+
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {
+                                CacheHelper.removeData(key: 'token');
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 15,),
+                                  const Text('LogOut'),
+                                  Spacer(),
+                                  IconButton(onPressed: () {},
+                                      icon: Icon(Icons.logout))
+                                ],
+                              )
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ));
   }
 }
-
 
 /*
 import 'package:buildcondition/buildcondition.dart';

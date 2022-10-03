@@ -19,6 +19,9 @@ class home_screen extends StatelessWidget {
       builder: (context, state) {
         var cubit = AppCubit.get(context).hotelModel;
         return Scaffold(
+          appBar: AppBar(
+            title: Text(appTranslation(context).fihotel),
+          ),
             body: SingleChildScrollView(
 
               child: Column(
@@ -26,11 +29,24 @@ class home_screen extends StatelessWidget {
               const Image(
                 image: AssetImage('assets/images/onboarding1.jpg'),
               ),
-              Text(appTranslation(context).pophotel),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(width: 15,),
+
+                Text(
+
+                  appTranslation(context).pophotel,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+
+                ),
+              ],
+            ),
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const hotel_description();
+                    return const hotel_description(
+
+                    );
                   }));
                 },
                 child: SizedBox(
@@ -38,79 +54,91 @@ class home_screen extends StatelessWidget {
                   child: ListView.separated(
                     //   physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50)),
-                            height: 150,
-                            width: 180,
-                            child: Image(
-                                image: NetworkImage(
-                                    'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}'))),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 270,
-                              child: Text(
-                                cubit.data![index].name,
-                                maxLines: 1,
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ),
-                            SizedBox(
-                                width: 250,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Column(
+                   //   mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                        height: 150,
+                        width: 250,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                              child: Image(
+                                fit: BoxFit.fitWidth,
+                                  image: NetworkImage(
+                                      'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')))),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 310,
                                 child: Text(
-                                  cubit.data![index].address,
+                                  cubit.data![index].name,
                                   maxLines: 1,
+
                                   style: TextStyle(fontSize: 15),
-                                )),
-                            Row(
-                              children: [
-                                Text('Price : '),
-                                Text(
-                                  cubit.data![index].price,
-                                  style: TextStyle(color: Colors.blue),
                                 ),
-                                Text(' per night')
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star_rate_sharp,
-                                  color: Colors.blue,
-                                ),
-                                Icon(
-                                  Icons.star_rate_sharp,
-                                  color: Colors.blue,
-                                ),
-                                Icon(
-                                  Icons.star_rate_sharp,
-                                  color: Colors.blue,
-                                ),
-                                Icon(
-                                  Icons.star_rate_sharp,
-                                  color: Colors.blue,
-                                ),
-                                Icon(
-                                  Icons.star_half_sharp,
-                                  color: Colors.blue,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  cubit.data![index].rate,
-                                  style: TextStyle(color: Colors.blue),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                              ),
+                              SizedBox(
+                                  width: 250,
+                                  child: Text(
+                                    cubit.data![index].address,
+                                    maxLines: 1,
+                                    style: TextStyle(fontSize: 15),
+                                  )),
+                              Row(
+                                children: [
+                                  Text('Price : '),
+                                  Text(
+                                    cubit.data![index].price,
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                  Text(' per night')
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.yellow,
+                                    size: 20,
+                                  ),
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.yellow,
+                                    size: 20,
+                                  ),
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.yellow,
+                                    size: 20,
+                                  ),
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.yellow,
+                                    size: 20,
+                                  ),
+
+
+                                  const Icon(
+                                    Icons.star_half_sharp,
+                                    color: Colors.yellow,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    cubit.data![index].rate,
+                                    style: const TextStyle(color: Colors.blue,fontSize: 15),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) => const SizedBox(
@@ -120,7 +148,18 @@ class home_screen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(appTranslation(context).allhotel),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: 15,),
+
+                  Text(
+
+                      appTranslation(context).allhotel,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+
+                  ),
+                ],
+              ),
               ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Padding(
