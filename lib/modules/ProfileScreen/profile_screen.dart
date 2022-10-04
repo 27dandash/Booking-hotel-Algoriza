@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:shop_app/modules/ProfileScreen/cubit/cubit.dart';
 import 'package:shop_app/modules/ProfileScreen/uodate_profile.dart';
 
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
 import '../../shared/components/constants.dart';
-import '../../shared/network/SharedPreferences.dart';
-import '../register/cubit/states.dart';
-
 class profile_screen extends StatelessWidget {
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
@@ -40,7 +36,7 @@ class profile_screen extends StatelessWidget {
                           )),
                     ),
                   ),
-               Container(
+               SizedBox(
                  // width: 70,
                  height: 90,
                  child: ClipRRect(
@@ -54,8 +50,8 @@ class profile_screen extends StatelessWidget {
                    // ),
                  ),
                ),
-                  Text('${cubit!.name}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                  Text('${cubit!.email}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                  Text('${cubit!.name}',style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                  Text('${cubit.email}',style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
@@ -75,13 +71,17 @@ class profile_screen extends StatelessWidget {
                               },
                               child: Row(
                                 children: [
-                                  Text('Update Profilr')
+                                  SizedBox(width: 15,),
+                                  Text(appTranslation(context).updatebutton),
+                                  Spacer(),
+                                  Icon(Icons.security_update_good)
                                 ],
                               )
                           ),
                         ),
 
                         SizedBox(height: 15,),
+
                         SizedBox(
                           width: double.infinity,
                           child: MaterialButton(
@@ -95,10 +95,9 @@ class profile_screen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SizedBox(width: 15,),
-                                  const Text('Change App Theme'),
+                                   Text(appTranslation(context).changthemebutton),
                                   Spacer(),
-                                  IconButton(onPressed: () {},
-                                      icon: Icon(Icons.switch_camera_sharp))
+                                  Icon(Icons.switch_camera_sharp)
                                 ],
                               )
 
@@ -118,10 +117,9 @@ class profile_screen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SizedBox(width: 15,),
-                                  const Text('Change Language'),
+                                  Text(appTranslation(context).changlangbutton),
                                   Spacer(),
-                                  IconButton(onPressed: () {},
-                                      icon: Icon(Icons.language))
+                                  Icon(Icons.language)
                                 ],
                               )
 
@@ -141,10 +139,9 @@ class profile_screen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SizedBox(width: 15,),
-                                  const Text('LogOut'),
+                                  Text(appTranslation(context).logout),
                                   Spacer(),
-                                  IconButton(onPressed: () {},
-                                      icon: Icon(Icons.logout))
+                                  Icon(Icons.logout)
                                 ],
                               )
                           ),

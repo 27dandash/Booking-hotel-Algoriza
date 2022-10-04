@@ -66,7 +66,7 @@ class update_profile extends StatelessWidget {
                     //       name: nameController.text);
                     // }
                   },
-                  text: "Update"),
+                  text:appTranslation(context).updatebutton),
               SizedBox(height: 10,),
 
             ],

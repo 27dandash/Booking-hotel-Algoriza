@@ -60,14 +60,14 @@ class AppCubit extends Cubit<AppState> {
   void getupdateProfileData({
    required String name,
     required String email,
-    required String image,
+     Image ? image,
   }) {
     emit(UpdateProfileLoadingDataState());
 
     DioHelper.postData(url: updateProfileEndPoint, data: {
       'name': name,
       'email': email,
-      'image':image
+      'image':image,
     }).then((value) {
       updateprofileData = TestProfile.fromJson(value.data['data']);
       print('================updateprofile===============${updateprofileData!.name}');

@@ -66,6 +66,9 @@ class TranslationModel {
   late String pophotel;
   late String allhotel;
   late String fihotel;
+  late String updatebutton;
+  late String changthemebutton;
+  late String changlangbutton;
 
   TranslationModel.fromJson(Map<String, dynamic> json) {
     login = json['login'];
@@ -133,5 +136,8 @@ class TranslationModel {
     pophotel = json['pophotel'];
     allhotel = json['allhotel'];
     fihotel = json['fihotel'];
+    updatebutton = json['updatebutton'];
+    changthemebutton = json['changthemebutton'];
+    changlangbutton = json['changlangbutton'];
   }
 }
