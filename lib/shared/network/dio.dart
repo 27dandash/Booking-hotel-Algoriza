@@ -45,6 +45,7 @@ class DioHelper {
         },
       ),
       queryParameters: query,
+
     );
   }
 

@@ -52,21 +52,43 @@ class AppCubit extends Cubit<AppState> {
         : Icons.visibility_off_rounded;
     emit(LoginChangePasswordState());
   }
+
+//-------------------------------------------------updateprofile
+
+  TestProfile? updateprofileData;
+
+  void getupdateProfileData({
+   required String name,
+    required String email,
+    required String image,
+  }) {
+    emit(UpdateProfileLoadingDataState());
+
+    DioHelper.postData(url: updateProfileEndPoint, data: {
+      'name': name,
+      'email': email,
+      'image':image
+    }).then((value) {
+      updateprofileData = TestProfile.fromJson(value.data['data']);
+      print('================updateprofile===============${updateprofileData!.name}');
+      emit(UpdateProfileSuccessDataState());
+    }).catchError((onError) {
+      print('================Error update profile======== ${onError.toString()}');
+      emit(UpdateProfileErrorDataState(onError.toString()));
+    });
+  }
+
 //-------------------------------------------------getprofile
   TestProfile? profileData;
 
   void getProfileData() {
     emit(ProfileLoadingDataState());
 
-    DioHelper.getData
-      (
-        url: profileEndPoint,
-        token: token
-    ).then((value) {
+    DioHelper.getData(url: profileEndPoint, token: token).then((value) {
       profileData = TestProfile.fromJson(value.data['data']);
-      print('=======================token=====================');
-      print('================profile===============${profileData!.name}');
-      print('================profile===============${profileData!.id}');
+      // print('=======================token=====================');
+      // print('================profile===============${profileData!.name}');
+      // print('================profile===============${profileData!.id}');
 
       emit(ProfileSuccessDataState());
     }).catchError((onError) {
@@ -74,23 +96,22 @@ class AppCubit extends Cubit<AppState> {
       emit(ProfileErrorDataState(onError.toString()));
     });
   }
-//-------------------------------------------------getsearch
-  HoelTest ? searchModel;
 
-  void getSearch(
-      {
-        String address='',
-        int? maxPrice=90000,
-        int? minPrice=1,
-        int? count= 0,
-        int? page=0,
-        int? facilities=0,
-        double? latitude=0.0,
-        double? longitude=0.0,
-        int? distance=0,
-        String? name='p',
-      }
-      ) {
+//-------------------------------------------------getsearch
+  HoelTest? searchModel;
+
+  void getSearch({
+    String address = '',
+    int? maxPrice = 90000,
+    int? minPrice = 1,
+    int? count = 0,
+    int? page = 0,
+    int? facilities = 0,
+    double? latitude = 0.0,
+    double? longitude = 0.0,
+    int? distance = 0,
+    String? name = 'p',
+  }) {
     emit(SearchFilterLoadingState());
 
     DioHelper.getData(url: searchEndPoint, query: {
@@ -110,7 +131,6 @@ class AppCubit extends Cubit<AppState> {
       // print('========maxPrice============$maxPrice');
       // print("========Search============${searchModel!.data!.length}");
 
-
       emit(SearchFilterSuccessState());
     }).catchError((onError) {
       print('#################errorSearch##########');
@@ -118,6 +138,7 @@ class AppCubit extends Cubit<AppState> {
       emit(SearchFilterErrorState(onError.toString()));
     });
   }
+
   //----------------------------------------------gethotel
   HoelTest? hotelModel;
 
@@ -133,7 +154,6 @@ class AppCubit extends Cubit<AppState> {
       // print(hotelModel!.data[2].name);
       // print(hotelModel!.data[2].images[0]);
       emit(GetHotelDataSuccess());
-
     }).catchError((error) {
       // print('#################error##########');
 
@@ -141,7 +161,6 @@ class AppCubit extends Cubit<AppState> {
       emit(GetHotelDataError(error.toString()));
     });
   }
-
 
 // ---------------------------------------- change mode
   bool isappmode = false;

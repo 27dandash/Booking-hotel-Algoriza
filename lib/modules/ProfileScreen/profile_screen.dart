@@ -24,7 +24,7 @@ class profile_screen extends StatelessWidget {
             // TODO: implement listener
           },
           builder: (context, state) {
-            // var cubit=AppCubit.get(context).userModel;
+            var cubit=AppCubit.get(context).profileData;
             return SafeArea(
               child: Column(
                 children: [
@@ -35,12 +35,27 @@ class profile_screen extends StatelessWidget {
                       color: Colors.blue,
                       child: Center(
                           child: Text(
-                            "Profile Screen",
+                            appTranslation(context).profile,
                             style: TextStyle(fontSize: 25),
                           )),
                     ),
                   ),
-           //      Text('${cubit.userModel!.data!.name}'),
+               Container(
+                 // width: 70,
+                 height: 90,
+                 child: ClipRRect(
+                   borderRadius: BorderRadius.circular(120),
+                   child: Image(
+                     image: AssetImage('assets/images/onboarding1.jpg'),
+                   ),
+                   // child: Image(
+                   //   image:NetworkImage(
+                   //       'http://api.mahmoudtaha.com/images/${cubit!.image}'),
+                   // ),
+                 ),
+               ),
+                  Text('${cubit!.name}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                  Text('${cubit!.email}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(

@@ -15,7 +15,16 @@ class ShopChangeState extends AppState {}
 
 class ShopLoadingState extends AppState {}
 class ShowMoreState extends AppState {}
+//-------------------------------------------updateprofilestate
+class UpdateProfileLoadingDataState extends AppState {}
+class UpdateProfileSuccessDataState extends AppState {
+}
+class UpdateProfileErrorDataState extends AppState {
+  final String? error;
+  UpdateProfileErrorDataState(this.error);
+}
 //-------------------------------------------getprofilestate
+
 class ProfileLoadingDataState extends AppState {}
 class ProfileSuccessDataState extends AppState {
 }

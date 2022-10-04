@@ -73,7 +73,11 @@ class home_screen extends StatelessWidget {
                                         child: Image(
                                             fit: BoxFit.fitWidth,
                                             image: NetworkImage(
-                                                'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')))),
+                                                'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')
+                                        )
+                                    )
+                                )
+                                ,
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
