@@ -18,17 +18,19 @@ import 'modules/login/cubit/cubit.dart';
 import 'modules/on_boarding/onBoarding.dart';
 import 'shared/components/constants.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
   SharedPreferences.getInstance();
   Widget widget;
-  bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false ;
+  bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
   token = CacheHelper.getData(key: 'token');
   bool? isdark = CacheHelper.getData(key: 'Isdark');
-  isRtl = CacheHelper.getData(key: 'isRtl') == null ? false : CacheHelper.getData(key: 'isRtl');
+  isRtl = CacheHelper.getData(key: 'isRtl') == null
+      ? false
+      : CacheHelper.getData(key: 'isRtl');
 
   String translation = await rootBundle
       .loadString('assets/translations/${isRtl ? 'ar' : 'en'}.json');
@@ -43,50 +45,57 @@ void main() async{
   print(onBoarding);
 
   runApp(MyApp(
-    startWidget: widget, isRtl : isRtl , translation: translation,isdark: isdark,
+    startWidget: widget,
+    isRtl: isRtl,
+    translation: translation,
+    isdark: isdark,
   ));
-
 }
 
 class MyApp extends StatelessWidget {
   final bool? isdark;
   final Widget startWidget;
-    final bool isRtl;
-    final String translation;
-    MyApp({required this.startWidget,this.isdark ,required this.isRtl , required this.translation});
+  final bool isRtl;
+  final String translation;
+
+  MyApp(
+      {required this.startWidget,
+      this.isdark,
+      required this.isRtl,
+      required this.translation});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers:[
-    BlocProvider<LoginCubit>(
-    create:  (BuildContext context)=> LoginCubit(),
-    ),
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (BuildContext context) => LoginCubit(),
+        ),
         BlocProvider<AppCubit>(
-        create: (BuildContext context) => AppCubit()
-          ..checkConnectivity()
-          ..gethotels()
-          ..getSearch()
-          ..getProfileData()
-          ..onchangeappmode(formShared: isdark )
-          ..setTranslation(translation: translation),
-        ),
-      BlocProvider<RegisterCubit>(create: (BuildContext context)=>RegisterCubit())],
-        child: BlocConsumer<AppCubit , AppState> (
-          listener:  (context, state) {},
-          builder:  (context, state) {
-            var cubit =AppCubit.get(context);
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme().lightTheme,
-              darkTheme: AppTheme().darkTheme,
-              themeMode:  cubit.isappmode ? ThemeMode.dark : ThemeMode.light,
-              home: startWidget,
-            );
-          },
-        ),
-
+            create: (BuildContext context) => AppCubit()
+              ..checkConnectivity()
+              ..setTranslation(translation: translation)
+              ..onchangeappmode(formShared: isdark)
+              ..gethotels()
+              ..getSearch()
+              ..getProfileData()
+              ),
+        BlocProvider<RegisterCubit>(
+            create: (BuildContext context) => RegisterCubit())
+      ],
+      child: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = AppCubit.get(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme().lightTheme,
+            darkTheme: AppTheme().darkTheme,
+            themeMode: cubit.isappmode ? ThemeMode.dark : ThemeMode.light,
+            home: startWidget,
+          );
+        },
+      ),
     );
   }
 }
-

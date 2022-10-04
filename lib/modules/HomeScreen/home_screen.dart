@@ -22,7 +22,7 @@ class home_screen extends StatelessWidget {
             appBar: AppBar(
               title: Text(appTranslation(context).fihotel),
             ),
-            body: SingleChildScrollView(
+            body: cubit == null ? const Center(child: CircularProgressIndicator()) : SingleChildScrollView(
               child: Column(
                 children: [
                   const Image(

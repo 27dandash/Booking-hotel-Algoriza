@@ -16,15 +16,34 @@ class DioHelper {
 
   }
 
-  static Future<Response> getData(
-      {required String url,
-        Map<String, dynamic>? query,
-        String lang = 'en',
-        String? token,
-        Map<String, dynamic>? headers}) async {
-    dio.options.headers = headers;
-    return await dio.get(
+  // static Future<Response> getData(
+  //     {required String url,
+  //       Map<String, dynamic>? query,
+  //       String lang = 'en',
+  //       String? token,
+  //       Map<String, dynamic>? headers
+  //     }) async {
+  //   dio.options.headers = headers;
+  //   return await dio.get(
+  //     url,
+  //     queryParameters: query,
+  //   );
+  // }
+
+  static Future<Response> getData({
+    required String url,
+    String? token,
+    Map<String, dynamic>? query,
+  }) {
+    return dio.get(
       url,
+      options: Options(
+        headers: {
+          'lang':'en',
+          'Content-Type':' application/json',
+          'token': token??'',
+        },
+      ),
       queryParameters: query,
     );
   }

@@ -24,7 +24,7 @@ class profile_screen extends StatelessWidget {
             // TODO: implement listener
           },
           builder: (context, state) {
-            var cubit=AppCubit.get(context).userModel;
+            // var cubit=AppCubit.get(context).userModel;
             return SafeArea(
               child: Column(
                 children: [

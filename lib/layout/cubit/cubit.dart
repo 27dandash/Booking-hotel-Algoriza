@@ -53,18 +53,22 @@ class AppCubit extends Cubit<AppState> {
     emit(LoginChangePasswordState());
   }
 //-------------------------------------------------getprofile
-  ProfileModel? userModel;
+  TestProfile? profileData;
 
   void getProfileData() {
     emit(ProfileLoadingDataState());
 
-    DioHelper.getData(url: profileEndPoint, token: token).then((value) {
+    DioHelper.getData
+      (
+        url: profileEndPoint,
+        token: token
+    ).then((value) {
+      profileData = TestProfile.fromJson(value.data['data']);
       print('=======================token=====================');
-      print(token);
-      userModel = ProfileModel.fromJson(value.data);
-      print('================profile===============$userModel');
+      print('================profile===============${profileData!.name}');
+      print('================profile===============${profileData!.id}');
+
       emit(ProfileSuccessDataState());
-      print('===========name==========${userModel!.data!.name!}');
     }).catchError((onError) {
       print('================Error profile======== ${onError.toString()}');
       emit(ProfileErrorDataState(onError.toString()));

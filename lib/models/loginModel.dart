@@ -68,22 +68,18 @@ class LoginData {
   String? emailVerifiedAt;
   String? token;
   String? image;
-  String? createdAt;
-  String? updatedAt;
   String? googleId;
-  String? provider;
 
   LoginData(
-      {this.id,
+      {
+        this.id,
         this.name,
         this.email,
         this.emailVerifiedAt,
         this.token,
         this.image,
-        this.createdAt,
-        this.updatedAt,
         this.googleId,
-        this.provider});
+      });
 
   LoginData.fromJson(Map<String, dynamic> json) {
     id = json['id']??0;
@@ -92,10 +88,7 @@ class LoginData {
     emailVerifiedAt = json['email_verified_at']??'';
     token = json['api_token']??'';
     image = json['image']??'';
-    createdAt = json['created_at']??'';
-    updatedAt = json['updated_at']??'';
     googleId = json['google_id']??'';
-    provider = json['provider']??'';
   }
 
   Map<String, dynamic> toJson() {
@@ -106,10 +99,7 @@ class LoginData {
     data['email_verified_at'] = this.emailVerifiedAt;
     data['api_token'] = this.token;
     data['image'] = this.image;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     data['google_id'] = this.googleId;
-    data['provider'] = this.provider;
     return data;
   }
 }
