@@ -24,13 +24,14 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterStates>(
+    return BlocConsumer<RegisterCubit, ProfileStates>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
             showToast(
                 message:'Register Done',
                 toastStates: ToastStates.SUCCESS);
-
+            CacheHelper.saveData(
+                key: 'user_id', value: state.registerModel!.data!.id);
             CacheHelper.saveData(
                 key: 'token', value: state.registerModel!.data!.token)
                 .then((value) {

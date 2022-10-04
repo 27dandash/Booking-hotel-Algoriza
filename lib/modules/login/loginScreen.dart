@@ -25,10 +25,12 @@ class LoginScreen extends StatelessWidget {
       listener: (context, states) {
         if (states is LoginSuccessState) {
           CacheHelper.saveData(
+              key: 'user_id', value: states.loginModel!.data!.id);
+          CacheHelper.saveData(
                   key: 'token', value: states.loginModel!.data!.token)
               .then((value) {
             token = states.loginModel!.data!.token;
-            navigateFinish(context, Home());
+            navigateFinish(context,const Home());
           });
           showToast(
               message: 'Login Done Success', toastStates: ToastStates.SUCCESS);
@@ -52,6 +54,13 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                       ClipRRect(
+                         borderRadius: BorderRadius.circular(40),
+                         child:const Image(
+                          image: AssetImage('assets/images/onboarding1.jpg'),
+                      ),
+                       ),
+                      const SizedBox(height: 35,),
                       Text(
                         'Login',
                         style: Theme.of(context)
@@ -59,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                             .bodyText1!
                             .copyWith(color: colorDefault, fontSize: 33),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       defaultFormField(
@@ -95,15 +104,8 @@ class LoginScreen extends StatelessWidget {
                           },
                           suffix: AppCubit.get(context).suffix,
                           prefix: Icons.lock_outline_rounded),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      defaultTextButton(
-                        xolor: Colors.black,
-                        function: (){
-                        navigateTo(context, RegisterScreen());
-                      }, text: 'Don\'t Have an account ? Register Here',),
-                      SizedBox(
+
+                      const SizedBox(
                         height: 20,
                       ),
                       BuildCondition(
@@ -123,6 +125,20 @@ class LoginScreen extends StatelessWidget {
                         fallback: (context) =>
                             Center(child: CircularProgressIndicator()),
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+
+                      MaterialButton(onPressed: (){
+                        navigateTo(context, RegisterScreen());
+                      },child: Row(
+                        children: const [
+                          Text('Don\'t Have an account ?',style: TextStyle(fontSize: 17),),
+                          Spacer(),
+                          Text('Register Here',style: TextStyle(color: Colors.blue),),
+
+                        ],
+                      ),)
                     ],
                   ),
                 ),

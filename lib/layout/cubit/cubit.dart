@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/cubit/states.dart';
 import 'package:shop_app/models/hoelTest.dart';
-import 'package:shop_app/models/profile_screen.dart';
+import 'package:shop_app/models/profile_model.dart';
 import 'package:shop_app/models/search_model.dart';
 
 import 'package:shop_app/shared/components/constants.dart';
@@ -16,6 +16,7 @@ import 'package:shop_app/shared/network/SharedPreferences.dart';
 import 'package:shop_app/shared/network/dio.dart';
 import 'package:shop_app/shared/network/endPoints.dart';
 
+import '../../models/loginModel.dart';
 import '../../modules/ExploarScreen/exploar_screen.dart';
 import '../../modules/HomeScreen/home_screen.dart';
 import '../../modules/ProfileScreen/profile_screen.dart';
@@ -51,6 +52,24 @@ class AppCubit extends Cubit<AppState> {
         : Icons.visibility_off_rounded;
     emit(LoginChangePasswordState());
   }
+//-------------------------------------------------getprofile
+  ProfileModel? userModel;
+
+  void getProfileData() {
+    emit(ProfileLoadingDataState());
+
+    DioHelper.getData(url: profileEndPoint, token: token).then((value) {
+      print('=======================token=====================');
+      print(token);
+      userModel = ProfileModel.fromJson(value.data);
+      print('================profile===============$userModel');
+      emit(ProfileSuccessDataState());
+      print('===========name==========${userModel!.data!.name!}');
+    }).catchError((onError) {
+      print('================Error profile======== ${onError.toString()}');
+      emit(ProfileErrorDataState(onError.toString()));
+    });
+  }
 //-------------------------------------------------getsearch
   HoelTest ? searchModel;
 
@@ -83,9 +102,9 @@ class AppCubit extends Cubit<AppState> {
       'facilities[0]': facilities == 0 ? [] : facilities,
     }).then((value) {
       searchModel = HoelTest.fromJson(value.data['data']);
-      // print('========name============$name');
+      // print('========name============$distance');
       // print('========maxPrice============$maxPrice');
-      print("========Search============${searchModel!.data!.length}");
+      // print("========Search============${searchModel!.data!.length}");
 
 
       emit(SearchFilterSuccessState());
@@ -106,35 +125,19 @@ class AppCubit extends Cubit<AppState> {
     }).then((value) {
       // value.for
       hotelModel = HoelTest.fromJson(value.data['data']);
-      print('###########################');
+      // print('###########################');
       // print(hotelModel!.data[2].name);
       // print(hotelModel!.data[2].images[0]);
       emit(GetHotelDataSuccess());
 
     }).catchError((error) {
-      print('#################error##########');
+      // print('#################error##########');
 
-      print(error.toString());
+      // print(error.toString());
       emit(GetHotelDataError(error.toString()));
     });
   }
 
-// ---------------------------------------- get profile data
-
-  ProfileModel? userModel;
-
-  void getSettingData() {
-    emit(ShopLoadingGetSettingDataState());
-    print('name is error ');
-    DioHelper.getData(url: profileEndPoint, token: token).then((value) {
-      userModel = ProfileModel.fromJson(value.data);
-      emit(ShopSuccessGetSettingDataState(userModel!));
-    }).catchError((onError) {
-      print(onError.toString());
-      print('name is error ');
-      emit(ShopErrorGetSettingDataState(onError.toString()));
-    });
-  }
 
 // ---------------------------------------- change mode
   bool isappmode = false;

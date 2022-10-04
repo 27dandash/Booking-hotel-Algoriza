@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:shop_app/modules/ProfileScreen/cubit/cubit.dart';
+import 'package:shop_app/modules/ProfileScreen/uodate_profile.dart';
 
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
+import '../../shared/components/constants.dart';
 import '../../shared/network/SharedPreferences.dart';
+import '../register/cubit/states.dart';
 
 class profile_screen extends StatelessWidget {
+  var nameController = TextEditingController();
+  var phoneController = TextEditingController();
+  var emailController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +24,7 @@ class profile_screen extends StatelessWidget {
             // TODO: implement listener
           },
           builder: (context, state) {
-            // var cubit=AppCubit.get(context).
+            var cubit=AppCubit.get(context).userModel;
             return SafeArea(
               child: Column(
                 children: [
@@ -31,6 +40,7 @@ class profile_screen extends StatelessWidget {
                           )),
                     ),
                   ),
+           //      Text('${cubit.userModel!.data!.name}'),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
@@ -42,31 +52,20 @@ class profile_screen extends StatelessWidget {
                               color: Colors.blue,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
-                              onPressed: () {},
-                              child: const Text('Book Now')),
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return update_profile();
+                                    }));
+                              },
+                              child: Row(
+                                children: [
+                                  Text('Update Profilr')
+                                ],
+                              )
+                          ),
                         ),
-                        SizedBox(height: 15,),
-                        SizedBox(
-                          width: double.infinity,
-                          child: MaterialButton(
-                              height: 50,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              onPressed: () {},
-                              child: const Text('Book Now')),
-                        ),
-                        SizedBox(height: 15,),
-                        SizedBox(
-                          width: double.infinity,
-                          child: MaterialButton(
-                              height: 50,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              onPressed: () {},
-                              child: const Text('Book Now')),
-                        ),
+
                         SizedBox(height: 15,),
                         SizedBox(
                           width: double.infinity,
@@ -76,7 +75,7 @@ class profile_screen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               onPressed: () {
-                                AppCubit.get(context).changeLanguage();
+                                AppCubit.get(context).onchangeappmode();
                               },
                               child: Row(
                                 children: [
@@ -99,7 +98,7 @@ class profile_screen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               onPressed: () {
-                                AppCubit.get(context).onchangeappmode();
+                                AppCubit.get(context).changeLanguage();
                               },
                               child: Row(
                                 children: [
@@ -122,7 +121,7 @@ class profile_screen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               onPressed: () {
-                                CacheHelper.removeData(key: 'token');
+                                signOut(context);
                               },
                               child: Row(
                                 children: [

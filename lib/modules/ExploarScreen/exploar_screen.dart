@@ -11,7 +11,10 @@ import '../map/map.dart';
 class exploar_screen extends StatelessWidget {
   exploar_screen({Key? key}) : super(key: key);
   var nameController = TextEditingController();
-  var pricetController = TextEditingController();
+  var maxpricetController = TextEditingController();
+  var minpricetController = TextEditingController();
+  var addressController = TextEditingController();
+  var distanceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +48,7 @@ class exploar_screen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (state is SearchFilterLoadingState) const LinearProgressIndicator(),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: nameController,
@@ -67,40 +71,121 @@ class exploar_screen extends StatelessWidget {
                 SizedBox(
                   height: 7,
                 ),
-                TextFormField(
-                  controller: pricetController,
-                  // onChanged: (val)=>AppCubit.get(context).getSearch(
-                  //     name: textController.text
-                  // ),
-                  keyboardType:TextInputType.number ,
-                  decoration: const InputDecoration(
-                    labelText: 'Price',
-                    prefixIcon: Icon(Icons.price_change),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your product name';
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (String text) {},
+                Row(
+                  children: [
+                    Container(
+                      width: 170,
+                      child: TextFormField(
+                        controller: minpricetController,
+                        // onChanged: (val)=>AppCubit.get(context).getSearch(
+                        //     name: textController.text
+                        // ),
+                        keyboardType:TextInputType.number ,
+                        decoration: const InputDecoration(
+                          labelText: 'Min Price',
+                          prefixIcon: Icon(Icons.price_change),
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your product name';
+                          }
+                          return null;
+                        },
+                        onFieldSubmitted: (String text) {},
+                      ),
+                    ),
+                    SizedBox(width: 5,),
+                    Container(
+                      width: 170,
+                      child: TextFormField(
+                        controller: maxpricetController,
+                        // onChanged: (val)=>AppCubit.get(context).getSearch(
+                        //     name: textController.text
+                        // ),
+                        keyboardType:TextInputType.number ,
+                        decoration: const InputDecoration(
+                          labelText: 'Max Price',
+                          prefixIcon: Icon(Icons.price_change),
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your product name';
+                          }
+                          return null;
+                        },
+                        onFieldSubmitted: (String text) {},
+                      ),
+                    ),
+
+                  ],
                 ),
-                MaterialButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    AppCubit.get(context).getSearch(
-                      name: nameController.text,
-                      maxPrice: int.parse(pricetController.text.toString()),
-                    );
-                  },
-                  child: const Text('Search'),
+                // TextFormField(
+                //   keyboardType: TextInputType.text,
+                //   controller: addressController,
+                //   // onChanged: (val)=>AppCubit.get(context).getSearch(
+                //   //     name: textController.text
+                //   // ),
+                //   decoration: const InputDecoration(
+                //     labelText: 'address',
+                //     prefixIcon: Icon(Icons.map),
+                //     border: OutlineInputBorder(),
+                //   ),
+                //   validator: (String? value) {
+                //     if (value!.isEmpty) {
+                //       return 'Please enter your product name';
+                //     }
+                //     return null;
+                //   },
+                //   onFieldSubmitted: (String text) {},
+                // ),
+                // TextFormField(
+                //   keyboardType: TextInputType.number,
+                //   controller: distanceController,
+                //   // onChanged: (val)=>AppCubit.get(context).getSearch(
+                //   //     name: textController.text
+                //   // ),
+                //   decoration: const InputDecoration(
+                //     labelText: 'Distamce',
+                //     prefixIcon: Icon(Icons.social_distance),
+                //     border: OutlineInputBorder(),
+                //   ),
+                //   validator: (String? value) {
+                //     if (value!.isEmpty) {
+                //       return 'Please enter your product name';
+                //     }
+                //     return null;
+                //   },
+                //   onFieldSubmitted: (String text) {},
+                // ),
+                Center(
+                  child: SizedBox(
+                        width: 290,
+                    child: MaterialButton(
+                      color: Colors.blue,
+                      onPressed: () {
+                        AppCubit.get(context).getSearch(
+                          name: nameController.text,
+                          maxPrice: int.parse(maxpricetController.text.toString()),
+                          minPrice: int.parse(minpricetController.text.toString()),
+                         // distance: int.parse(distanceController.text.toString()),
+                         // address: addressController.text,
+                        );
+                      },
+                      child: const Text('Search'),
+                    ),
+                  ),
                 ),
                 //  if (state is SearchFilterLoadingState)
                 const SizedBox(
                   height: 35,
                 ),
+
                 //  const LinearProgressIndicator(),
+
+                if (state is SearchFilterSuccessState)
+                  Text('Total Response ( ${cubit!.data!.length} )',style: TextStyle(color: Colors.blue),),
                 const SizedBox(
                   height: 10,
                 ),

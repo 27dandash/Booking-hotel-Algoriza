@@ -1,5 +1,5 @@
 import 'package:shop_app/models/loginModel.dart';
-import 'package:shop_app/models/profile_screen.dart';
+import 'package:shop_app/models/profile_model.dart';
 
 abstract class AppState  {}
 
@@ -15,6 +15,14 @@ class ShopChangeState extends AppState {}
 
 class ShopLoadingState extends AppState {}
 class ShowMoreState extends AppState {}
+//-------------------------------------------getprofilestate
+class ProfileLoadingDataState extends AppState {}
+class ProfileSuccessDataState extends AppState {
+}
+class ProfileErrorDataState extends AppState {
+  final String? error;
+  ProfileErrorDataState(this.error);
+}
 //-------------------------------------------getsearch
 class SearchFilterLoadingState extends AppState {}
 class SearchFilterSuccessState extends AppState {}
@@ -35,16 +43,6 @@ class GetHotelDataError extends AppState {
   GetHotelDataError(this.error);
 }
 
-//-----------------------------------------profile
-class ShopLoadingGetSettingDataState extends AppState {}
-class ShopSuccessGetSettingDataState extends AppState {
-  final ProfileModel model;
-  ShopSuccessGetSettingDataState(this.model);
-}
-class ShopErrorGetSettingDataState extends AppState {
-  final String? error;
-  ShopErrorGetSettingDataState(this.error);
-}
 //------------------------mode
 class ChangeThemeloadState extends AppState {}
 class ChangeThemeSuccessState extends AppState {}

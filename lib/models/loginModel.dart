@@ -1,19 +1,18 @@
 class LoginModel {
   Status? status;
-  Data? data;
+  LoginData? data;
 
   LoginModel({this.status, this.data});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    status =
-    json['status'] != null ? new Status.fromJson(json['status']) : null;
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    status = json['status'] != null ? Status.fromJson(json['status']) : null;
+    data = json['data'] != null ? LoginData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.status != null) {
-      data['status'] = this.status!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (status != null) {
+      data['status'] = status!.toJson();
     }
     if (this.data != null) {
       data['data'] = this.data!.toJson();
@@ -62,19 +61,19 @@ class Title {
   }
 }
 
-class Data {
+class LoginData {
   int? id;
   String? name;
   String? email;
-  Null? emailVerifiedAt;
+  String? emailVerifiedAt;
   String? token;
-  Null? image;
+  String? image;
   String? createdAt;
   String? updatedAt;
-  Null? googleId;
-  Null? provider;
+  String? googleId;
+  String? provider;
 
-  Data(
+  LoginData(
       {this.id,
         this.name,
         this.email,
@@ -86,17 +85,17 @@ class Data {
         this.googleId,
         this.provider});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
+  LoginData.fromJson(Map<String, dynamic> json) {
+    id = json['id']??0;
+    name = json['name']??'';
     email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
-    token = json['api_token'];
-    image = json['image'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    googleId = json['google_id'];
-    provider = json['provider'];
+    emailVerifiedAt = json['email_verified_at']??'';
+    token = json['api_token']??'';
+    image = json['image']??'';
+    createdAt = json['created_at']??'';
+    updatedAt = json['updated_at']??'';
+    googleId = json['google_id']??'';
+    provider = json['provider']??'';
   }
 
   Map<String, dynamic> toJson() {

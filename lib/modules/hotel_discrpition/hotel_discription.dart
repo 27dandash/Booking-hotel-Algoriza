@@ -23,93 +23,81 @@ class hotel_description extends StatelessWidget {
   },
   builder: (context, state) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          appTranslation(context).details
+        ),
+      ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              // height: 150,
-              child: Image.network(
-                 'http://api.mahmoudtaha.com/images/${data.images[0]}'),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 15.0,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Price : ${data.price}',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      // Text(
-                      //   '${cubit!.data!.price} EGP',
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .bodyText1!
-                      //       .copyWith(
-                      //     color: Colors.blue,
-                      //   ),
-                      //   maxLines: ShopCubit.get(context).maxLines,
-                      // ),
-                    ],
-                  ),
-                ),
-                Spacer(),
-              ],
-            ),
-            SizedBox(height: 8.0,),
-            Divider(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-            Column(children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-              ' text: item.name.toUpperCase(),',
-                maxLines: 3,
-
-              ),
               SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child:  Text(
-                        ' text: item.address.toUpperCase(),',
-                        maxLines: 3,
-
-                      ),
-                    ),
-
-                  ],
+                width: double.infinity,
+                 // height: 250,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                     'http://api.mahmoudtaha.com/images/${data.images[0]}'),
                 ),
               ),
+              const SizedBox(
+                height: 20.0,
+              ),
+               Text(
+               'name : ${ data.name.toUpperCase()}',style: TextStyle(fontSize: 20),
+                maxLines: 1,
 
-            Text(
-              ' text: item.dessription.toUpperCase(),',
-              maxLines: 3,
+              ),
+               Text(
+               'price : ${ data.price.toUpperCase()} per night',style: TextStyle(fontSize: 20),
+                maxLines: 1,
 
-            ),
+              ),
+               Text(
+               'Description : ',style: TextStyle(fontSize: 20),
+                maxLines: 5,
 
+              ),
+               Container(
+                 decoration: BoxDecoration(
+                     color: Colors.grey,
+                   borderRadius: BorderRadius.circular(20)
+                 ),
 
+                 child: Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text(
+                     data.description ,style: TextStyle(fontSize: 20),
+                    maxLines: 5,
 
+              ),
+                 ),
+               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'See More ',style: TextStyle(fontSize: 20,color: Colors.blue),
+                    maxLines: 5,
 
-            ]
-            )
-          ],
+                  ),
+                ],
+              ),
+              // SizedBox(
+              //   child: ListView.separated(
+              //       scrollDirection: Axis.vertical,
+              //       itemBuilder: (context, index) =>padding(),
+              //       separatorBuilder: (context, index) => SizedBox(
+              //         width: 7,
+              //       ),
+              //       itemCount: 1),
+              // )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
@@ -148,4 +136,35 @@ class hotel_description extends StatelessWidget {
   },
 );
   }
+  Widget padding()=>  Column(
+    children: [
+      Container(
+        height: 200,
+        width: 200,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+          child: Image.network(
+            'http://api.mahmoudtaha.com/images/${data.images[1]}',fit: BoxFit.fill,),
+        ),
+      ),
+      Container(
+        height: 200,
+        width: 200,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+          child: Image.network(
+            'http://api.mahmoudtaha.com/images/${data.images[2]}',fit: BoxFit.fill,),
+        ),
+      ),
+      Container(
+        height: 200,
+        width: 200,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+          child: Image.network(
+            'http://api.mahmoudtaha.com/images/${data.images[3]}',fit: BoxFit.fill,),
+        ),
+      ),
+    ],
+  );
 }

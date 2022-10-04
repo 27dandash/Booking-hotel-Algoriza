@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
           ..checkConnectivity()
           ..gethotels()
           ..getSearch()
+          ..getProfileData()
           ..onchangeappmode(formShared: isdark )
           ..setTranslation(translation: translation),
         ),

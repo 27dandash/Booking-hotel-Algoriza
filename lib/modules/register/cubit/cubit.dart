@@ -14,7 +14,7 @@ import 'package:shop_app/shared/network/endPoints.dart';
 
 import '../../../shared/components/constants.dart';
 
-class RegisterCubit extends Cubit<RegisterStates>{
+class RegisterCubit extends Cubit<ProfileStates>{
   RegisterCubit() : super(RegisterInitialState());
   static RegisterCubit get(context)=> BlocProvider.of(context);
 

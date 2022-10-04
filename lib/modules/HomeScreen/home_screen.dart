@@ -43,6 +43,7 @@ class home_screen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 240,
+                    width: 500,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => InkWell(
@@ -53,87 +54,95 @@ class home_screen extends StatelessWidget {
                           }));
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Column(
-                            //   mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                  height: 150,
-                                  width: 250,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-                                      child: Image(
-                                          fit: BoxFit.fitWidth,
-                                          image: NetworkImage(
-                                              'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')))),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 310,
-                                    child: Text(
-                                      cubit.data![index].name,
-                                      maxLines: 1,
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                  ),
-                                  SizedBox(
+                          padding: const EdgeInsets.all(3),
+                          child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.cyan[100],
+                            borderRadius: BorderRadius.circular(30)
+                          ),
+                            child: Column(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+
+                                    height: 150,
+                                    width: 300,
+                                    child: ClipRRect(
+
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: Image(
+                                            fit: BoxFit.fitWidth,
+                                            image: NetworkImage(
+                                                'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')))),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
                                       width: 250,
                                       child: Text(
-                                        cubit.data![index].address,
+                                        cubit.data![index].name,
                                         maxLines: 1,
                                         style: TextStyle(fontSize: 15),
-                                      )),
-                                  Row(
-                                    children: [
-                                      Text('Price : '),
-                                      Text(
-                                        cubit.data![index].price,
-                                        style: TextStyle(color: Colors.blue),
                                       ),
-                                      Text(' per night')
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.yellow,
-                                        size: 20,
-                                      ),
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.yellow,
-                                        size: 20,
-                                      ),
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.yellow,
-                                        size: 20,
-                                      ),
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.yellow,
-                                        size: 20,
-                                      ),
-                                      const Icon(
-                                        Icons.star_half_sharp,
-                                        color: Colors.yellow,
-                                        size: 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        cubit.data![index].rate,
-                                        style: const TextStyle(
-                                            color: Colors.blue, fontSize: 15),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    ),
+                                    SizedBox(
+                                        width: 250,
+                                        child: Text(
+                                          cubit.data![index].address,
+                                          maxLines: 1,
+                                          style: TextStyle(fontSize: 15),
+                                        )),
+                                    Row(
+                                      children: [
+                                        Text('Price : '),
+                                        Text(
+                                          cubit.data![index].price,
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        Text(' per night')
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star_rounded,
+                                          color: Colors.yellow,
+                                          size: 20,
+                                        ),
+                                        const Icon(
+                                          Icons.star_rounded,
+                                          color: Colors.yellow,
+                                          size: 20,
+                                        ),
+                                        const Icon(
+                                          Icons.star_rounded,
+                                          color: Colors.yellow,
+                                          size: 20,
+                                        ),
+                                        const Icon(
+                                          Icons.star_rounded,
+                                          color: Colors.yellow,
+                                          size: 20,
+                                        ),
+                                        const Icon(
+                                          Icons.star_half_sharp,
+                                          color: Colors.yellow,
+                                          size: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          cubit.data![index].rate,
+                                          style: const TextStyle(
+                                              color: Colors.blue, fontSize: 15),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -268,7 +277,12 @@ class home_screen extends StatelessWidget {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                            return hotel_description(data: cubit!.data![index],);
+                                          }));
+                                    },
                                     child: const Text('Book Now')),
                               )
                             ],
