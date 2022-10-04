@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -56,6 +58,25 @@ class profile_screen extends StatelessWidget {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
+                        MaterialButton(
+                          onPressed: () {
+                            AppCubit.get(context).pickImage();
+                          },
+                          child: const Text('Pick Image'),
+                        ),
+                        if (AppCubit.get(context).image != null)
+                          // Container(
+                          //   width: 200.0,
+                          //   height: 200.0,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.red,
+                          //     image: DecorationImage(
+                          //       image: FileImage(File(AppBloc.get(context).image!.path)),
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //     borderRadius: BorderRadius.circular(10.0),
+                          //   ),
+                          // ),
                         SizedBox(
                           width: double.infinity,
                           child: MaterialButton(

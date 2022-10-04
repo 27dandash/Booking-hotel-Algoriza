@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/layout/cubit/states.dart';
 import 'package:shop_app/models/hoelTest.dart';
 import 'package:shop_app/models/profile_model.dart';
@@ -53,6 +54,20 @@ class AppCubit extends Cubit<AppState> {
     emit(LoginChangePasswordState());
   }
 
+//-------------------------------------------------pickImage
+  final ImagePicker _picker = ImagePicker();
+  XFile? image;
+
+  void pickImage() async {
+    emit(PickImageLoadingState());
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      image = pickedFile;
+
+      emit(PickImageSuccessState());
+    }
+  }
 //-------------------------------------------------updateprofile
 
   TestProfile? updateprofileData;
@@ -233,4 +248,54 @@ class AppCubit extends Cubit<AppState> {
     }
     emit(InternetState());
   }
+
+  /////////////////////////////////////////////
+/*
+  Future<Either<ServerException, UserModel>> updateProfile({
+    required String token,
+    required String name,
+    required String email,
+    File? image,
+  }) async {
+    return basicErrorHandling<UserModel>(
+      onSuccess: () async {
+        final response = await DioHelper.postData(
+          url: '$baseApiUrl$version$updateProfileEndPoint',
+          token: token,
+          // isMultipart: true,
+          data: FormData.fromMap({
+            'name': name,
+            'email': email,
+            'image': await MultipartFile.fromFile(
+              image!.path,
+              filename: Uri.file(image.path).pathSegments.last,
+            ),
+          }),
+        );
+
+        return UserModel.fromJson(response.data);
+      },
+      onServerException: (e) async {
+        return e;
+      },
+    );
+  }
+  ///////////////////////////postData
+    static Future<Response> postData({
+    required String url,
+    Map<String, dynamic>? query,
+    required dynamic data,
+    String lang = 'en',
+    String? token,
+    bool isMultipart = false,
+  }) async {
+    dio.options.headers = {
+      'lang': lang,
+      'Content-Type': 'application/json',
+      'token': token
+    };
+    return await dio.post(url, queryParameters: query, data: data);
+  }
+
+ */
 }

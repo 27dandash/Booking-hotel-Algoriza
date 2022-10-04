@@ -15,6 +15,10 @@ class ShopChangeState extends AppState {}
 
 class ShopLoadingState extends AppState {}
 class ShowMoreState extends AppState {}
+//-------------------------------------------pickImage
+class PickImageSuccessState extends AppState {}
+class PickImageLoadingState extends AppState {}
+
 //-------------------------------------------updateprofilestate
 class UpdateProfileLoadingDataState extends AppState {}
 class UpdateProfileSuccessDataState extends AppState {
