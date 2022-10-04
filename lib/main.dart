@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
               ..gethotels()
               ..getSearch()
               ..getProfileData()
-              ..getupdateProfileData(name:'',email: '')
+              // ..getUpdateProfileData(name:'عبدالرحمن دندش',email: 'ww@gmail.com')
               ),
         BlocProvider<RegisterCubit>(
             create: (BuildContext context) => RegisterCubit())

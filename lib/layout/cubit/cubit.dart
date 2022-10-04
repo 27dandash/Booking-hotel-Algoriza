@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,42 +58,20 @@ class AppCubit extends Cubit<AppState> {
 
 //-------------------------------------------------pickImage
   final ImagePicker _picker = ImagePicker();
-  XFile? image;
+  XFile? pickImageFromGallery;
 
   void pickImage() async {
     emit(PickImageLoadingState());
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      image = pickedFile;
-
-      emit(PickImageSuccessState());
-    }
+    pickImageFromGallery = await _picker.pickImage(source: ImageSource.gallery);
+    emit(PickImageSuccessState());
   }
-//-------------------------------------------------updateprofile
 
-  TestProfile? updateprofileData;
-
-  void getupdateProfileData({
-   required String name,
-    required String email,
-     Image ? image,
-  }) {
-    emit(UpdateProfileLoadingDataState());
-
-    DioHelper.postData(url: updateProfileEndPoint, data: {
-      'name': name,
-      'email': email,
-      'image':image,
-    }).then((value) {
-      updateprofileData = TestProfile.fromJson(value.data['data']);
-      print('================updateprofile===============${updateprofileData!.name}');
-      emit(UpdateProfileSuccessDataState());
-    }).catchError((onError) {
-      print('================Error update profile======== ${onError.toString()}');
-      emit(UpdateProfileErrorDataState(onError.toString()));
-    });
+  void removeImage() async {
+    pickImageFromGallery;
+    emit(RemoveImageSuccessState());
   }
+
+
 
 //-------------------------------------------------getprofile
   TestProfile? profileData;
@@ -250,52 +230,41 @@ class AppCubit extends Cubit<AppState> {
   }
 
   /////////////////////////////////////////////
-/*
-  Future<Either<ServerException, UserModel>> updateProfile({
-    required String token,
+
+//-------------------------------------------------updateprofile
+
+  TestProfile? updateprofileData;
+
+  void getUpdateProfileData({
     required String name,
     required String email,
-    File? image,
-  }) async {
-    return basicErrorHandling<UserModel>(
-      onSuccess: () async {
-        final response = await DioHelper.postData(
-          url: '$baseApiUrl$version$updateProfileEndPoint',
-          token: token,
-          // isMultipart: true,
-          data: FormData.fromMap({
-            'name': name,
-            'email': email,
-            'image': await MultipartFile.fromFile(
-              image!.path,
-              filename: Uri.file(image.path).pathSegments.last,
-            ),
-          }),
-        );
+    XFile? image,
 
-        return UserModel.fromJson(response.data);
-      },
-      onServerException: (e) async {
-        return e;
-      },
-    );
-  }
-  ///////////////////////////postData
-    static Future<Response> postData({
-    required String url,
-    Map<String, dynamic>? query,
-    required dynamic data,
-    String lang = 'en',
-    String? token,
-    bool isMultipart = false,
   }) async {
-    dio.options.headers = {
-      'lang': lang,
-      'Content-Type': 'application/json',
-      'token': token
-    };
-    return await dio.post(url, queryParameters: query, data: data);
-  }
+    emit(UpdateProfileLoadingDataState());
 
- */
+    DioHelper.postData(
+            url: updateProfileEndPoint,
+            data: {
+              'name': name,
+              'email': email,
+
+              'image': await MultipartFile.fromFile(
+                image!.path,
+                filename: Uri.file(image.path).pathSegments.last,
+              ),
+
+            },
+            token: token)
+        .then((value) {
+      updateprofileData = TestProfile.fromJson(value.data['data']);
+      print(
+          '================updateprofile===============${updateprofileData!.name}');
+      emit(UpdateProfileSuccessDataState());
+    }).catchError((onError) {
+      print(
+          '================Error update profile======== ${onError.toString()}');
+      emit(UpdateProfileErrorDataState(onError.toString()));
+    });
+  }
 }

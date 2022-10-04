@@ -17,6 +17,7 @@ class ShopLoadingState extends AppState {}
 class ShowMoreState extends AppState {}
 //-------------------------------------------pickImage
 class PickImageSuccessState extends AppState {}
+class RemoveImageSuccessState extends AppState {}
 class PickImageLoadingState extends AppState {}
 
 //-------------------------------------------updateprofilestate

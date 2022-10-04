@@ -1,4 +1,5 @@
-import 'dart:html';
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class profile_screen extends StatelessWidget {
           },
           builder: (context, state) {
             var cubit=AppCubit.get(context).profileData;
+            var bloc =AppCubit.get(context);
             return SafeArea(
               child: Column(
                 children: [
@@ -38,18 +40,36 @@ class profile_screen extends StatelessWidget {
                           )),
                     ),
                   ),
-               SizedBox(
-                 // width: 70,
-                 height: 90,
-                 child: ClipRRect(
-                   borderRadius: BorderRadius.circular(120),
-                   child: Image(
-                     image: AssetImage('assets/images/onboarding1.jpg'),
+                  SizedBox(
+                    height: 20,
+                  ),
+               GestureDetector(
+                  onTap: (){
+                    bloc.pickImage();
+                  },
+                 child:  bloc.pickImageFromGallery != null ? SizedBox(
+                   height: 150,
+                   child: ClipRRect(
+                     borderRadius: BorderRadius.circular(10),
+                     child:
+                     Stack(
+                       alignment: Alignment.topRight,
+                       children: [
+                          Image(image: FileImage(File(bloc.pickImageFromGallery!.path,)),fit: BoxFit.cover,height: 150,width: 150),
+                          GestureDetector(
+                              onTap: (){
+                                bloc.removeImage();
+                              },
+                              child: CircleAvatar(child: Icon(Icons.delete,size: 25,))),
+
+                       ],
+                     ),
                    ),
-                   // child: Image(
-                   //   image:NetworkImage(
-                   //       'http://api.mahmoudtaha.com/images/${cubit!.image}'),
-                   // ),
+                 ) : SizedBox(
+                   height: 150,
+                   child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                       child: Image.asset('assets/images/onboarding1.jpg',fit: BoxFit.cover,height: 150,width: 150,)),
                  ),
                ),
                   Text('${cubit!.name}',style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
@@ -64,7 +84,6 @@ class profile_screen extends StatelessWidget {
                           },
                           child: const Text('Pick Image'),
                         ),
-                        if (AppCubit.get(context).image != null)
                           // Container(
                           //   width: 200.0,
                           //   height: 200.0,
@@ -167,6 +186,31 @@ class profile_screen extends StatelessWidget {
                               )
                           ),
                         ),
+
+                        SizedBox(
+                          width: double.infinity,
+                          child: MaterialButton(
+                              height: 50,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              onPressed: () {
+                                bloc.getUpdateProfileData(
+                                    name: 'دشدووش',
+                                    email: 'sss@gmail.com',
+                                     image: bloc.pickImageFromGallery
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 15,),
+                                  Text('Update Data'),
+                                  Spacer(),
+                                  Icon(Icons.logout)
+                                ],
+                              )
+                          ),
+                        )
                       ],
                     ),
                   ),
