@@ -73,24 +73,26 @@ class hotel_description extends StatelessWidget {
                    padding: const EdgeInsets.all(8.0),
                    child: Text(
                      data.description ,style: TextStyle(fontSize: 20),
-                    maxLines: 5,
-
+                    maxLines: AppCubit.get(context).seeMore ? null : 5,
               ),
-                 ),
-               ),
+             ),
+            ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   defaultTextButton(
+                    xolor: Colors.blue,
                       text: AppCubit.get(context).seeMore
                           ? 'read more'
                           : 'read less',
                       function: (){
                         AppCubit.get(context).descriptionView();
-                      }
+                      },
                   ),
                 ],
               ),
+
               // SizedBox(
               //   child: ListView.separated(
               //       scrollDirection: Axis.vertical,
@@ -128,7 +130,10 @@ class hotel_description extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)),
             onPressed: () {
-              //  cubit.createBooking(hotelId: item.id);
+              AppCubit.get(context).printIds(
+                  AppCubit.get(context).profileData!.id!,
+                  data.id
+              );
             },
           ),
         ),

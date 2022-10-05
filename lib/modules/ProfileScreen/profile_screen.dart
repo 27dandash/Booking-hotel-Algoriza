@@ -45,7 +45,7 @@ class profile_screen extends StatelessWidget {
                     onTap: (){
                       bloc.pickImage();
                     },
-                    child:  bloc.pickImageFromGallery != null ?
+                    child:  bloc.imageFile != null ?
                     SizedBox(
                       height: 150,
                       child: ClipRRect(
@@ -54,7 +54,7 @@ class profile_screen extends StatelessWidget {
                         Stack(
                           alignment: Alignment.topRight,
                           children: [
-                            Image(image: FileImage(File(bloc.pickImageFromGallery!.path,)),fit: BoxFit.cover,height: 150,width: 150),
+                            Image(image: FileImage(bloc.imageFile!),fit: BoxFit.cover,height: 150,width: 150),
                             GestureDetector(
                                 onTap: (){
                                   bloc.removeImage();

@@ -30,14 +30,14 @@ class update_profile extends StatelessWidget {
     if (state is UpdateProfileSuccessDataState) {
       nameController.text = state.profileData!.name!;
       emailController.text = state.profileData!.email!;
-
+      showToast(message: 'مبروووك', toastStates: ToastStates.SUCCESS);
     }
-    // TODO: implement listener
   },
   builder: (context, state) {
     var model = AppCubit.get(context).profileData;
     nameController.text = model!.name!;
     emailController.text = model.email!;
+
     var cubit=AppCubit.get(context).profileData;
     var bloc =AppCubit.get(context);
     return Padding(
@@ -52,7 +52,7 @@ class update_profile extends StatelessWidget {
                 onTap: (){
                   bloc.pickImage();
                 },
-                child:  bloc.pickImageFromGallery != null ?
+                child:  bloc.imageFile != null ?
                 SizedBox(
                   height: 150,
                   child: ClipRRect(
@@ -61,7 +61,7 @@ class update_profile extends StatelessWidget {
                     Stack(
                       alignment: Alignment.topRight,
                       children: [
-                        Image(image: FileImage(File(bloc.pickImageFromGallery!.path,)),fit: BoxFit.cover,height: 150,width: 150),
+                        Image(image: FileImage(File(bloc.imageFile!.path,)),fit: BoxFit.cover,height: 150,width: 150),
                         GestureDetector(
                             onTap: (){
                               bloc.removeImage();
@@ -76,7 +76,7 @@ class update_profile extends StatelessWidget {
                   height: 150,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset('assets/images/onboarding1.jpg',fit: BoxFit.cover,height: 150,width: 150,)),
+                      child: Image.network('${cubit!.image}',fit: BoxFit.cover,height: 150,width: 150,)),
                 ),
               ),
               // ------------------------------------ name
@@ -108,22 +108,19 @@ class update_profile extends StatelessWidget {
 
 
               // ------------------------- check data is empty or no .
+              if (state is !UpdateProfileLoadingDataState)
               defaultButton(
                   background: HexColor('FACE7F'),
                   function: () {
                     bloc.getUpdateProfileData(
                         name: nameController.text,
                         email: emailController.text,
-                        image: File(bloc.pickImageFromGallery!.path)
                     );
-                    // if (formKey.currentState!.validate()) {
-                    //   ShopCubit.get(context).updateProfileData(
-                    //       email: emailController.text,
-                    //       phone: phoneController.text,
-                    //       name: nameController.text);
-                    // }
-                  },
+                    },
                   text:appTranslation(context).updatebutton),
+
+              if (state is UpdateProfileLoadingDataState)
+                const Center(child: CircularProgressIndicator()),
               SizedBox(height: 10,),
 
             ],

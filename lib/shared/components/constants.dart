@@ -8,6 +8,8 @@ import 'components.dart';
 bool? isInProgress;
 String? token;
 
+const String pathNetwork = 'http://api.mahmoudtaha.com/images/';
+
 void signOut(context) {
   CacheHelper.removeData(key: 'token').then((value) {
     if (value) {

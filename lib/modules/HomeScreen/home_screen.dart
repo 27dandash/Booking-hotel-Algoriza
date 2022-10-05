@@ -50,7 +50,7 @@ class home_screen extends StatelessWidget {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return hotel_description(data: cubit!.data![index],);
+                            return hotel_description(data: cubit.data![index],);
                           }));
                         },
                         child: Padding(
@@ -73,7 +73,7 @@ class home_screen extends StatelessWidget {
                                         child: Image(
                                             fit: BoxFit.fitWidth,
                                             image: NetworkImage(
-                                                'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')
+                                                '$pathNetwork${cubit.data![index].images[index]}')
                                         )
                                     )
                                 )
@@ -196,7 +196,7 @@ class home_screen extends StatelessWidget {
                                               BorderRadius.circular(30),
                                           child: Image(
                                               image: NetworkImage(
-                                                  'http://api.mahmoudtaha.com/images/${cubit!.data![index].images[index]}')),
+                                                  'http://api.mahmoudtaha.com/images/${cubit.data![index].images[index]}')),
                                         )),
                                   ),
                                   Column(
@@ -284,7 +284,7 @@ class home_screen extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
-                                            return hotel_description(data: cubit!.data![index],);
+                                            return hotel_description(data: cubit.data![index],);
                                           }));
                                     },
                                     child:  Text(appTranslation(context).booknow)),
@@ -298,7 +298,7 @@ class home_screen extends StatelessWidget {
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 5,
                     ),
-                    itemCount: cubit!.data!.length - 2,
+                    itemCount: cubit.data!.length - 2,
                   ),
                 ],
               ),
