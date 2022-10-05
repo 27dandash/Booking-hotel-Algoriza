@@ -56,7 +56,7 @@ class AppCubit extends Cubit<AppState> {
     emit(LoginChangePasswordState());
   }
 
-//-----------------------------------------------------see more
+//-----------------------------------------------------see more button
   int? maxLines;
   bool seeMore = true;
 
@@ -68,7 +68,7 @@ class AppCubit extends Cubit<AppState> {
     } else {
       maxLines = 6;
       seeMore = true;
-      emit(ShowMoreState());
+      emit(ShowLessState());
     }
   }
 
@@ -97,8 +97,7 @@ class AppCubit extends Cubit<AppState> {
         token: token
     ).then((value) {
       updateprofileData = TestProfile.fromJson(value.data['data']);
-      print(
-          '================updateprofile===============${updateprofileData!.name}');
+      print('================updateprofile===============${updateprofileData!.name}');
       getProfileData();
       emit(UpdateProfileSuccessDataState(profileData));
     }).catchError((onError) {
@@ -108,7 +107,7 @@ class AppCubit extends Cubit<AppState> {
     });
     } else {
       DioHelper.postData(
-          isMultipart: true,
+          isMultipart: false,
           url: updateProfileEndPoint,
           data: {
             'name': name,

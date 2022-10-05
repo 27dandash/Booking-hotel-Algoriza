@@ -10,6 +10,7 @@ import '../../models/hoelTest.dart';
 import '../../models/hoelTest.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
+import '../BookHotel/book_hotel.dart';
 
 class hotel_description extends StatelessWidget {
   final DataModel data;
@@ -73,7 +74,7 @@ class hotel_description extends StatelessWidget {
                    padding: const EdgeInsets.all(8.0),
                    child: Text(
                      data.description ,style: TextStyle(fontSize: 20),
-                    maxLines: AppCubit.get(context).seeMore ? null : 5,
+                    maxLines: AppCubit.get(context).seeMore ? 5 : null,
               ),
              ),
             ),
@@ -92,7 +93,37 @@ class hotel_description extends StatelessWidget {
                   ),
                 ],
               ),
-
+          Row(
+            children: [
+              Container(
+                height: 120,
+                width: 120,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.network(
+                    'http://api.mahmoudtaha.com/images/${data.images[1]}',fit: BoxFit.fill,),
+                ),
+              ),
+              Container(
+                height: 120,
+                width: 120,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.network(
+                    'http://api.mahmoudtaha.com/images/${data.images[2]}',fit: BoxFit.fill,),
+                ),
+              ),
+              Container(
+                height:120,
+                width: 120,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.network(
+                    'http://api.mahmoudtaha.com/images/${data.images[3]}',fit: BoxFit.fill,),
+                ),
+              ),
+            ],
+          ),
               // SizedBox(
               //   child: ListView.separated(
               //       scrollDirection: Axis.vertical,
@@ -130,10 +161,11 @@ class hotel_description extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)),
             onPressed: () {
-              AppCubit.get(context).printIds(
-                  AppCubit.get(context).profileData!.id!,
-                  data.id
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context){return book_hotel();}));
+              // AppCubit.get(context).printIds(
+              //     AppCubit.get(context).profileData!.id!,
+              //     data.id
+              // );
             },
           ),
         ),
@@ -145,11 +177,12 @@ class hotel_description extends StatelessWidget {
   },
 );
   }
-  Widget padding()=>  Column(
+  Widget padding()=>
+      Row(
     children: [
       Container(
-        height: 200,
-        width: 200,
+        height: 20,
+        width: 20,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: Image.network(
@@ -157,8 +190,8 @@ class hotel_description extends StatelessWidget {
         ),
       ),
       Container(
-        height: 200,
-        width: 200,
+        height: 00,
+        width: 20,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: Image.network(
@@ -166,8 +199,8 @@ class hotel_description extends StatelessWidget {
         ),
       ),
       Container(
-        height: 200,
-        width: 200,
+        height: 20,
+        width: 20,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: Image.network(

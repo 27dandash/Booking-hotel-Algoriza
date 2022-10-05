@@ -30,7 +30,7 @@ class update_profile extends StatelessWidget {
     if (state is UpdateProfileSuccessDataState) {
       nameController.text = state.profileData!.name!;
       emailController.text = state.profileData!.email!;
-      showToast(message: 'مبروووك', toastStates: ToastStates.SUCCESS);
+      showToast(message: 'Change Done Successfully', toastStates: ToastStates.SUCCESS);
     }
   },
   builder: (context, state) {

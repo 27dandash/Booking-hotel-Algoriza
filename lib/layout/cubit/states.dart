@@ -14,6 +14,7 @@ class LoginChangePasswordState extends AppState {}
 
 //---------------------------------------------------------ShowMoreState
 class ShowMoreState extends AppState {}
+class ShowLessState extends AppState {}
 //-------------------------------------------pickImage
 class PickImageSuccessState extends AppState {}
 class RemoveImageSuccessState extends AppState {}

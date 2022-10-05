@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
     return Directionality(
         textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
         child: BuildCondition(
-          condition: !AppCubit.  get(context).noInternetConnection,
+          condition: !AppCubit.get(context).noInternetConnection,
           builder: (context)=> Scaffold(
 
             body: cubit.bottomScreen[cubit.currentIndex],

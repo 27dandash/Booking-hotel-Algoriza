@@ -41,36 +41,24 @@ class profile_screen extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      bloc.pickImage();
-                    },
-                    child:  bloc.imageFile != null ?
-                    SizedBox(
-                      height: 150,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child:
-                        Stack(
-                          alignment: Alignment.topRight,
-                          children: [
-                            Image(image: FileImage(bloc.imageFile!),fit: BoxFit.cover,height: 150,width: 150),
-                            GestureDetector(
-                                onTap: (){
-                                  bloc.removeImage();
-                                },
-                                child: CircleAvatar(child: Icon(Icons.delete,size: 25,))),
-
-                          ],
-                        ),
-                      ),
-                    ) :
-                    SizedBox(
-                      height: 150,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset('assets/images/onboarding1.jpg',fit: BoxFit.cover,height: 150,width: 150,)),
+                  cubit!.image != null ?
+                  SizedBox(
+                    height: 150,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child:
+                      Image(
+                          fit: BoxFit.fitWidth,
+                          image: NetworkImage(
+                              '${cubit.image}')
+                      )
                     ),
+                  ) :
+                  SizedBox(
+                    height: 150,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset('assets/images/onboarding1.jpg',fit: BoxFit.cover,height: 150,width: 150,)),
                   ),
 
                   Text('${cubit!.name}',style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
