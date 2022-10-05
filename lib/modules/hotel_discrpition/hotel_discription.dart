@@ -8,6 +8,7 @@ import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
 import '../../models/hoelTest.dart';
 import '../../models/hoelTest.dart';
+import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
 
 class hotel_description extends StatelessWidget {
@@ -80,10 +81,13 @@ class hotel_description extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'See More ',style: TextStyle(fontSize: 20,color: Colors.blue),
-                    maxLines: 5,
-
+                  defaultTextButton(
+                      text: AppCubit.get(context).seeMore
+                          ? 'read more'
+                          : 'read less',
+                      function: (){
+                        AppCubit.get(context).descriptionView();
+                      }
                   ),
                 ],
               ),

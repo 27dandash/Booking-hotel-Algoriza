@@ -30,12 +30,8 @@ class AppCubit extends Cubit<AppState> {
 
   static AppCubit get(context) => BlocProvider.of(context);
 
-  IconData suffix = Icons.visibility_rounded;
-  bool isPasswordShow = true;
+  //---------------------------------------------------------bottomnavigation
   int currentIndex = 0;
-
-  int? maxLines;
-  bool seeMore = true;
 
   List<Widget> bottomScreen = [
     home_screen(),
@@ -45,9 +41,11 @@ class AppCubit extends Cubit<AppState> {
 
   void changeBottom(int index) {
     currentIndex = index;
-    emit(ShopChangeState());
+    emit(AppChangeState());
   }
-
+//---------------------------------------------change visibiltyicon
+  IconData suffix = Icons.visibility_rounded;
+  bool isPasswordShow = true;
   void changePassword() {
     isPasswordShow = !isPasswordShow;
     suffix = isPasswordShow
@@ -55,23 +53,74 @@ class AppCubit extends Cubit<AppState> {
         : Icons.visibility_off_rounded;
     emit(LoginChangePasswordState());
   }
+//-----------------------------------------------------see more
+  int? maxLines;
+  bool seeMore = true;
+  void descriptionView() {
+    if (seeMore) {
+      maxLines = null;
+      seeMore = false;
+      emit(ShowMoreState());
+    } else {
+      maxLines = 6;
+      seeMore = true;
+      emit(ShowMoreState());
+    }
+  }
+  //-------------------------------------------------updateprofile
 
-//-------------------------------------------------pickImage
+  TestProfile? updateprofileData;
+
+  void getUpdateProfileData({
+    String ?  name,
+    String ?  email,
+    File ? image,
+
+  }) async {
+    emit(UpdateProfileLoadingDataState());
+
+    DioHelper.postData(
+      isMultipart: true,
+        url: updateProfileEndPoint,
+        data: {
+          'name': name,
+          'email': email,
+          'image': await MultipartFile.fromFile(
+            image!.path,
+            filename: Uri.file(image.path).pathSegments.last,
+          ),
+
+        },
+        token: token)
+        .then((value) {
+      updateprofileData = TestProfile.fromJson(value.data['data']);
+      print(
+          '================updateprofile===============${updateprofileData!.name}');
+      emit(UpdateProfileSuccessDataState(profileData));
+    }).catchError((onError) {
+      print(
+          '================Error update profile======== ${onError.toString()}');
+      emit(UpdateProfileErrorDataState(onError.toString()));
+    });
+  }
+//----------------------------------------------------------pickImage
   final ImagePicker _picker = ImagePicker();
   XFile? pickImageFromGallery;
 
   void pickImage() async {
     emit(PickImageLoadingState());
-    pickImageFromGallery = await _picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if(pickedFile!=null){
+      pickImageFromGallery=pickedFile;
+    }
     emit(PickImageSuccessState());
   }
 
+//--------------------------------------------------------remove image
   void removeImage() async {
     pickImageFromGallery;
     emit(RemoveImageSuccessState());
   }
-
-
 
 //-------------------------------------------------getprofile
   TestProfile? profileData;
@@ -91,7 +140,6 @@ class AppCubit extends Cubit<AppState> {
       emit(ProfileErrorDataState(onError.toString()));
     });
   }
-
 //-------------------------------------------------getsearch
   HoelTest? searchModel;
 
@@ -133,7 +181,6 @@ class AppCubit extends Cubit<AppState> {
       emit(SearchFilterErrorState(onError.toString()));
     });
   }
-
   //----------------------------------------------gethotel
   HoelTest? hotelModel;
 
@@ -156,8 +203,7 @@ class AppCubit extends Cubit<AppState> {
       emit(GetHotelDataError(error.toString()));
     });
   }
-
-// ---------------------------------------- change mode
+// ---------------------------------------------------------- change mode
   bool isappmode = false;
 
   void onchangeappmode({bool? formShared}) {
@@ -231,40 +277,5 @@ class AppCubit extends Cubit<AppState> {
 
   /////////////////////////////////////////////
 
-//-------------------------------------------------updateprofile
 
-  TestProfile? updateprofileData;
-
-  void getUpdateProfileData({
-    required String name,
-    required String email,
-    XFile? image,
-
-  }) async {
-    emit(UpdateProfileLoadingDataState());
-
-    DioHelper.postData(
-            url: updateProfileEndPoint,
-            data: {
-              'name': name,
-              'email': email,
-
-              'image': await MultipartFile.fromFile(
-                image!.path,
-                filename: Uri.file(image.path).pathSegments.last,
-              ),
-
-            },
-            token: token)
-        .then((value) {
-      updateprofileData = TestProfile.fromJson(value.data['data']);
-      print(
-          '================updateprofile===============${updateprofileData!.name}');
-      emit(UpdateProfileSuccessDataState());
-    }).catchError((onError) {
-      print(
-          '================Error update profile======== ${onError.toString()}');
-      emit(UpdateProfileErrorDataState(onError.toString()));
-    });
-  }
 }

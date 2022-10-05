@@ -287,7 +287,7 @@ class home_screen extends StatelessWidget {
                                             return hotel_description(data: cubit!.data![index],);
                                           }));
                                     },
-                                    child: const Text('Book Now')),
+                                    child:  Text(appTranslation(context).booknow)),
                               )
                             ],
                           ),

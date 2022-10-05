@@ -1,19 +1,18 @@
 import 'package:shop_app/models/loginModel.dart';
 import 'package:shop_app/models/profile_model.dart';
 
+import '../../models/hoelTest.dart';
+
 abstract class AppState  {}
 
 class ShopInitialState extends AppState {}
 
+//---------------------------------------------------------bottomnavigation
 
+class AppChangeState extends AppState {}
 class LoginChangePasswordState extends AppState {}
 
-
-
-class ShopChangeState extends AppState {}
-
-
-class ShopLoadingState extends AppState {}
+//---------------------------------------------------------ShowMoreState
 class ShowMoreState extends AppState {}
 //-------------------------------------------pickImage
 class PickImageSuccessState extends AppState {}
@@ -23,6 +22,9 @@ class PickImageLoadingState extends AppState {}
 //-------------------------------------------updateprofilestate
 class UpdateProfileLoadingDataState extends AppState {}
 class UpdateProfileSuccessDataState extends AppState {
+  TestProfile? profileData;
+
+  UpdateProfileSuccessDataState(this.profileData);
 }
 class UpdateProfileErrorDataState extends AppState {
   final String? error;
@@ -57,7 +59,7 @@ class GetHotelDataError extends AppState {
   GetHotelDataError(this.error);
 }
 
-//------------------------mode
+//---------------------------------------------App mode
 class ChangeThemeloadState extends AppState {}
 class ChangeThemeSuccessState extends AppState {}
 // -------------------- Translation

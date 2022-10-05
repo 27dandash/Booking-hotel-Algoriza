@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import '../../layout/cubit/states.dart';
 import '../../shared/components/constants.dart';
 class profile_screen extends StatelessWidget {
   var nameController = TextEditingController();
-  var phoneController = TextEditingController();
   var emailController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
@@ -43,59 +41,44 @@ class profile_screen extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-               GestureDetector(
-                  onTap: (){
-                    bloc.pickImage();
-                  },
-                 child:  bloc.pickImageFromGallery != null ? SizedBox(
-                   height: 150,
-                   child: ClipRRect(
-                     borderRadius: BorderRadius.circular(10),
-                     child:
-                     Stack(
-                       alignment: Alignment.topRight,
-                       children: [
-                          Image(image: FileImage(File(bloc.pickImageFromGallery!.path,)),fit: BoxFit.cover,height: 150,width: 150),
-                          GestureDetector(
-                              onTap: (){
-                                bloc.removeImage();
-                              },
-                              child: CircleAvatar(child: Icon(Icons.delete,size: 25,))),
+                  GestureDetector(
+                    onTap: (){
+                      bloc.pickImage();
+                    },
+                    child:  bloc.pickImageFromGallery != null ?
+                    SizedBox(
+                      height: 150,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child:
+                        Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Image(image: FileImage(File(bloc.pickImageFromGallery!.path,)),fit: BoxFit.cover,height: 150,width: 150),
+                            GestureDetector(
+                                onTap: (){
+                                  bloc.removeImage();
+                                },
+                                child: CircleAvatar(child: Icon(Icons.delete,size: 25,))),
 
-                       ],
-                     ),
-                   ),
-                 ) : SizedBox(
-                   height: 150,
-                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                       child: Image.asset('assets/images/onboarding1.jpg',fit: BoxFit.cover,height: 150,width: 150,)),
-                 ),
-               ),
+                          ],
+                        ),
+                      ),
+                    ) :
+                    SizedBox(
+                      height: 150,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/images/onboarding1.jpg',fit: BoxFit.cover,height: 150,width: 150,)),
+                    ),
+                  ),
+
                   Text('${cubit!.name}',style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                   Text('${cubit.email}',style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        MaterialButton(
-                          onPressed: () {
-                            AppCubit.get(context).pickImage();
-                          },
-                          child: const Text('Pick Image'),
-                        ),
-                          // Container(
-                          //   width: 200.0,
-                          //   height: 200.0,
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.red,
-                          //     image: DecorationImage(
-                          //       image: FileImage(File(AppBloc.get(context).image!.path)),
-                          //       fit: BoxFit.cover,
-                          //     ),
-                          //     borderRadius: BorderRadius.circular(10.0),
-                          //   ),
-                          // ),
                         SizedBox(
                           width: double.infinity,
                           child: MaterialButton(
@@ -135,7 +118,7 @@ class profile_screen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SizedBox(width: 15,),
-                                   Text(appTranslation(context).changthemebutton),
+                                  Text(appTranslation(context).changthemebutton),
                                   Spacer(),
                                   Icon(Icons.switch_camera_sharp)
                                 ],
@@ -187,30 +170,7 @@ class profile_screen extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(
-                          width: double.infinity,
-                          child: MaterialButton(
-                              height: 50,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              onPressed: () {
-                                bloc.getUpdateProfileData(
-                                    name: 'دشدووش',
-                                    email: 'sss@gmail.com',
-                                     image: bloc.pickImageFromGallery
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  SizedBox(width: 15,),
-                                  Text('Update Data'),
-                                  Spacer(),
-                                  Icon(Icons.logout)
-                                ],
-                              )
-                          ),
-                        )
+
                       ],
                     ),
                   ),
@@ -227,18 +187,14 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
-
 class profile_screen extends StatelessWidget {
   profile_screen({Key? key}) : super(key: key);
-
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var emailController = TextEditingController();
   var formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
@@ -248,7 +204,6 @@ class profile_screen extends StatelessWidget {
         // nameController.text = model!.data!.name!;
         // emailController.text = model.data!.email!;
       //  phoneController.text = model.data!.phone!;
-
         return BuildCondition(
           condition:AppCubit.get(context).userModel != null,
           builder: (context) =>
@@ -274,7 +229,6 @@ class profile_screen extends StatelessWidget {
                             },
                             label: "name",
                             prefix: Icons.person_pin_rounded),
-
                         // ------------------------------------ email
                         defaultFormField(
                             controller: emailController,
@@ -288,7 +242,6 @@ class profile_screen extends StatelessWidget {
                             label: "email",
                             prefix: Icons.email_rounded),
                         // ------------------------------------ phone
-
                         defaultFormField(
                             controller: phoneController,
                             type: TextInputType.phone,
